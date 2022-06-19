@@ -5,6 +5,7 @@
 #include "ui_choosenewgame.h"
 #include "rules.h"
 #include "ui_rules.h"
+#include "endlessmode.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,7 +13,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ChooseNewGame *newgame = new ChooseNewGame();
+    newgame->father = this;
     Rules *rule = new Rules();
+    rule->father = this;
+
+
     //主界面“新游戏”
     connect(ui->newGame, &QPushButton::clicked,[=](){
         this->hide();
@@ -27,16 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
         this->hide();
         rule->show();
     });
-    //新游戏“back”
-    connect(newgame->_ui->pushButton_4,&QPushButton::clicked,[=](){
-        newgame->hide();
-        this->show();
-    } );
-    //规则“back”
-    connect(rule->_ui->back,&QPushButton::clicked,[=](){
-        rule->hide();
-        this->show();
-    });
+
+
 }
 
 MainWindow::~MainWindow()

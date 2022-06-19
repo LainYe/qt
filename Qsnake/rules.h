@@ -2,6 +2,7 @@
 #define RULES_H
 
 #include <QWidget>
+#include "mainwindow.h"
 
 namespace Ui {
 class Rules;
@@ -14,7 +15,7 @@ class Rules : public QWidget
 public:
     explicit Rules(QWidget *parent = nullptr);
     ~Rules();
-    Ui::Rules* _ui;//对外的ui指针
+    MainWindow *father;
 
 private:
     Ui::Rules *ui;

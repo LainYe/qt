@@ -6,7 +6,18 @@ ChooseNewGame::ChooseNewGame(QWidget *parent) :
     ui(new Ui::ChooseNewGame)
 {
     ui->setupUi(this);
-    _ui = ui;
+    //新游戏“back”
+    connect(ui->pushButton_4,&QPushButton::clicked,[=](){
+        hide();
+        father->show();
+    } );
+    //新游戏“无尽模式”
+    connect(ui->endlessmode, &QPushButton::clicked,[=](){
+        hide();
+        EndlessMode *endlessmode = new EndlessMode();
+        endlessmode->show();
+    });
+
 }
 
 ChooseNewGame::~ChooseNewGame()

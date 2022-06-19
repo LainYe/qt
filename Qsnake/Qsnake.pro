@@ -9,18 +9,28 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    board.cpp \
     choosenewgame.cpp \
+    endlessmode.cpp \
     main.cpp \
     mainwindow.cpp \
     rules.cpp
 
 HEADERS += \
+    ../../AppData/Local/Temp/QtCreator-qNinqE/clang-uiheader-svwyQf/ui_choosenewgame.h \
+    ../../AppData/Local/Temp/QtCreator-qNinqE/clang-uiheader-svwyQf/ui_endlessmode.h \
+    ../../AppData/Local/Temp/QtCreator-qNinqE/clang-uiheader-svwyQf/ui_mainwindow.h \
+    ../../AppData/Local/Temp/QtCreator-qNinqE/clang-uiheader-svwyQf/ui_mainwindow.h \
+    ../../AppData/Local/Temp/QtCreator-qNinqE/clang-uiheader-svwyQf/ui_rules.h \
+    board.h \
     choosenewgame.h \
+    endlessmode.h \
     mainwindow.h \
     rules.h
 
 FORMS += \
     choosenewgame.ui \
+    endlessmode.ui \
     mainwindow.ui \
     rules.ui
 

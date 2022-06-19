@@ -24,21 +24,21 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="taskmode">
       <property name="text">
        <string>任务模式</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="endlessmode">
       <property name="text">
        <string>无尽模式</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="player2mode">
       <property name="text">
        <string>双人模式</string>
       </property>

@@ -2,6 +2,8 @@
 #define CHOOSENEWGAME_H
 
 #include <QWidget>
+#include "mainwindow.h"
+#include "endlessmode.h"
 
 namespace Ui {
 class ChooseNewGame;
@@ -13,7 +15,7 @@ class ChooseNewGame : public QWidget
 
 public:
     explicit ChooseNewGame(QWidget *parent = nullptr);
-    Ui::ChooseNewGame *_ui;//对外的ui指针
+    MainWindow* father;
     ~ChooseNewGame();
 
 private:

@@ -6,7 +6,11 @@ Rules::Rules(QWidget *parent) :
     ui(new Ui::Rules)
 {
     ui->setupUi(this);
-    _ui = ui;
+    //规则“back”
+    connect(ui->back,&QPushButton::clicked,[=](){
+        hide();
+        father->show();
+    });
 }
 
 Rules::~Rules()
