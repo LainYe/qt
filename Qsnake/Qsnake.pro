@@ -14,7 +14,8 @@ SOURCES += \
     endlessmode.cpp \
     main.cpp \
     mainwindow.cpp \
-    rules.cpp
+    rules.cpp \
+    snake.cpp
 
 HEADERS += \
     ../../AppData/Local/Temp/QtCreator-qNinqE/clang-uiheader-svwyQf/ui_choosenewgame.h \
@@ -26,7 +27,8 @@ HEADERS += \
     choosenewgame.h \
     endlessmode.h \
     mainwindow.h \
-    rules.h
+    rules.h \
+    snake.h
 
 FORMS += \
     choosenewgame.ui \

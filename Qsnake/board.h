@@ -1,6 +1,8 @@
 ﻿#ifndef BOARD_H
 #define BOARD_H
 #include <QPoint>
+#include "snake.h"
+#include <QWidget>
 class Board
 {
 public:
@@ -11,10 +13,12 @@ public:
     int length;//地图边长
     int map[500][500];//保存地图信息,可活动的区域是[1~length]*[1~length]
     //0代表蛇，1代表空地，2代表食物，-1代表墙
+    Snake *snake;
 
     Board(int);//给定length
     void makeFood();
-    bool isEnd();
+    void reset_interval();//调整速度
+    void get_score();//得分
 };
 
 #endif // BOARD_H

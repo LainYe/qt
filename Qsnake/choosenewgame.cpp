@@ -14,7 +14,7 @@ ChooseNewGame::ChooseNewGame(QWidget *parent) :
     //新游戏“无尽模式”
     connect(ui->endlessmode, &QPushButton::clicked,[=](){
         hide();
-        EndlessMode *endlessmode = new EndlessMode();
+        EndlessMode *endlessmode = new EndlessMode(this);
         endlessmode->show();
     });
 

@@ -20,8 +20,11 @@ public:
     explicit EndlessMode(QWidget *parent = nullptr);
     ~EndlessMode();
     bool Pause;//是否暂停状态
+    bool flag;//用来保证1个时间间隔只处理一个有效键盘事件
     QTimer *timer;//计时器
+    QTimer *timer2;//用于生成食物
     Board *board;//地图
+    QWidget *father;
 
     void paintEvent(QPaintEvent *);//重写绘图函数
     void keyPressEvent(QKeyEvent *);//重写键盘事件函数

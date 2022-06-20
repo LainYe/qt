@@ -1,17 +1,25 @@
 ﻿#include "board.h"
-
+#include "snake.h"
+#include <cstring>
 Board::Board(int _length)
 {
     score = 0;
     maxScore = 0;//待修改
-    move_interval = 500;
+    move_interval = 300;
     food_interval = 5000;
     length = _length;
-
+    snake = new Snake(this);
     //初始化地图
-    for(int i = 0; i< length; ++i)
+    for(int i = 0; i<= length + 1; ++i)
     {
-        map[0][i] = map[i][0] = map[length + 1][i] = map[i][length + 1] = 0;
+        map[0][i] = map[i][0] = map[length + 1][i] = map[i][length + 1] = -1;
+    }
+    for(int i = 1; i<= length ;++i)
+    {
+        for(int j = 1; j<= length; ++j)
+        {
+            map[i][j] = 1;
+        }
     }
     //初始一个食物
     int food_x = (rand()%length) + 1;
@@ -29,4 +37,19 @@ void Board::makeFood()
     }
     map[food_x][food_y] = 2;
     return;
+}
+
+void Board::reset_interval()
+{
+    double rate = (double)snake->len/100;//长度100后就不加速了
+    move_interval = fmax(20, 300 - 280 * rate);
+    food_interval = length * move_interval;
+    return;
+}
+
+void Board::get_score()
+{
+    score += 5;
+    if(score > maxScore)
+        maxScore = score;
 }
