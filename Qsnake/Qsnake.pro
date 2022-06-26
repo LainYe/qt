@@ -14,6 +14,8 @@ SOURCES += \
     endlessmode.cpp \
     main.cpp \
     mainwindow.cpp \
+    pause.cpp \
+    readfile.cpp \
     rules.cpp \
     snake.cpp
 
@@ -27,6 +29,8 @@ HEADERS += \
     choosenewgame.h \
     endlessmode.h \
     mainwindow.h \
+    pause.h \
+    readfile.h \
     rules.h \
     snake.h
 
@@ -34,6 +38,8 @@ FORMS += \
     choosenewgame.ui \
     endlessmode.ui \
     mainwindow.ui \
+    pause.ui \
+    readfile.ui \
     rules.ui
 
 # Default rules for deployment.

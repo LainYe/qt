@@ -1,11 +1,15 @@
 ﻿#include "endlessmode.h"
 #include "ui_endlessmode.h"
+#include "pause.h"
 #include <QPainter>
 #include <QTimer>
 #include <iostream>
+#include <fstream>
 #include <QMessageBox>
 #include <QDebug>
 #include <QString>
+
+using namespace std;
 
 # pragma execution_character_set("utf-8")
 
@@ -15,9 +19,10 @@ EndlessMode::EndlessMode(QWidget *_father) :
 {
     ui->setupUi(this);
     father = _father;
+
     setWindowTitle("贪吃蛇");
     board = new Board(20);
-    Pause = 0;
+    pause = 0;
     flag = 0;
     //初始化定时器
     timer = new QTimer(this);
@@ -29,7 +34,6 @@ EndlessMode::EndlessMode(QWidget *_father) :
     //为定时器设置连接函数
     connect(timer, &QTimer::timeout, this, &EndlessMode::timerEvent);
     connect(timer2, &QTimer::timeout, [=](){
-        qDebug()<<QString("timer2");
         board->makeFood();
         repaint();
         timer2->setInterval(board->food_interval);
@@ -102,17 +106,16 @@ void EndlessMode::paintEvent(QPaintEvent *ev)
 
 void EndlessMode::keyPressEvent(QKeyEvent *event)
 {
-    if(Pause)
+    if(pause)
         return;
     //P暂停
     if(event->key() == Qt::Key_P)
     {
         timer->stop();
         timer2->stop();
-        Pause = 1;
-        QMessageBox::information(this, tr("提醒"), tr("回到游戏"));
-        Pause = 0;
-        timer->start();
+        pause = 1;
+        Pause *_pause = new Pause(this);
+        _pause->show();
 
     }
     //若1个间隔多次按方向键就忽略
@@ -196,6 +199,11 @@ void EndlessMode:: timerEvent()
             timer2->setInterval(board->food_interval);
             timer2->start();
         }
+        else
+        {
+            this->hide();
+            father->show();
+        }
     }
     //平地
     else if(next == 1)
@@ -213,6 +221,95 @@ void EndlessMode:: timerEvent()
         repaint();
         timer->setInterval(board->move_interval);
         timer->start();
+    }
+
+}
+
+void EndlessMode::saveFile(std::string fileName)
+{
+    std::ifstream infile(fileName);//先看看有没有重名文件
+    if(infile)
+    {
+        if (QMessageBox::Yes ==
+            QMessageBox::question(this, tr("存档"), tr("存档已经存在，确认要覆盖吗?"),
+                QMessageBox::Yes | QMessageBox::No, QMessageBox::No))
+        {
+            std::ofstream outfile;
+            outfile.open(fileName);
+            outfile << board->score << " ";
+            outfile << board->maxScore << " ";
+            outfile << board->move_interval << " ";
+            outfile << board->food_interval << " ";
+            outfile << board->length << " ";
+            for(int i = 0; i < 500; ++i)
+            {
+                for(int j = 0; j < 500; ++j)
+                {
+                    outfile << board->map[i][j] << " ";
+                }
+                outfile << endl;
+            }
+            outfile << board->snake->len << " ";
+            for(int i = 0; i < board->snake->len; ++i)
+            {
+                outfile << board->snake->s[i][0] << " " << board->snake->s[0][1] << " ";
+            }
+            outfile << endl;
+            outfile << board->snake->dx << " ";
+            outfile << board->snake->dy << " ";
+            if(board->snake2)
+            {
+                outfile << board->snake2->len << " ";
+                for(int i = 0; i < board->snake2->len; ++i)
+                {
+                    outfile << board->snake2->s[i][0] << " " << board->snake2->s[0][1] << " ";
+                }
+                outfile << endl;
+                outfile << board->snake2->dx << " ";
+                outfile << board->snake2->dy << " ";
+             }
+            outfile.close();
+        }
+        else
+        {
+            infile.close();
+            return;
+        }
+    }
+    else
+    {
+        std::ofstream outfile;
+        outfile.open(fileName);
+        outfile << board->score << " ";
+        outfile << board->maxScore << " ";
+        outfile << board->move_interval << " ";
+        outfile << board->food_interval << " ";
+        outfile << board->length << " ";
+        for(int i = 0; i < 500; ++i)
+        {
+            for(int j = 0; j < 500; ++j)
+            {
+                outfile << board->map[i][j] << " ";
+            }
+        }
+        outfile << board->snake->len << " ";
+        for(int i = 0; i < board->snake->len; ++i)
+        {
+            outfile << board->snake->s[i][0] << " " << board->snake->s[0][1] << " ";
+        }
+        outfile << board->snake->dx << " ";
+        outfile << board->snake->dy << " ";
+        if(board->snake2)
+        {
+            outfile << board->snake2->len << " ";
+            for(int i = 0; i < board->snake2->len; ++i)
+            {
+                outfile << board->snake2->s[i][0] << " " << board->snake2->s[0][1] << " ";
+            }
+            outfile << board->snake2->dx << " ";
+            outfile << board->snake2->dy << " ";
+         }
+        outfile.close();
     }
 
 }

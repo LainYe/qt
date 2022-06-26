@@ -18,6 +18,7 @@ ChooseNewGame::ChooseNewGame(QWidget *parent) :
         endlessmode->show();
     });
 
+
 }
 
 ChooseNewGame::~ChooseNewGame()

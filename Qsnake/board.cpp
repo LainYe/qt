@@ -1,14 +1,30 @@
 ﻿#include "board.h"
 #include "snake.h"
 #include <cstring>
+#include <ctime>
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
 Board::Board(int _length)
 {
     score = 0;
-    maxScore = 0;//待修改
     move_interval = 300;
     food_interval = 5000;
     length = _length;
     snake = new Snake(this);
+    //读取最大值
+    fstream file("endlessmode_maxscore.txt",ios::in);
+    if(file){
+        file >> maxScore;
+        file.close();
+    }
+    else
+    {
+        maxScore = 0;
+    }
+
     //初始化地图
     for(int i = 0; i<= length + 1; ++i)
     {
@@ -29,6 +45,7 @@ Board::Board(int _length)
 
 void Board::makeFood()
 {
+    srand( (unsigned)time( NULL ) );
     int food_x = 0, food_y = 0;
     while(map[food_x][food_y] != 1)
     {
@@ -51,5 +68,12 @@ void Board::get_score()
 {
     score += 5;
     if(score > maxScore)
+    {
         maxScore = score;
+        fstream file("endlessmode_maxscore.txt",ios::out);
+        char buffer[20];
+        itoa(score,buffer,10);
+        file.write(buffer,strlen(buffer));
+        file.close();
+    }
 }

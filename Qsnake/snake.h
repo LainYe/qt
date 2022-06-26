@@ -7,7 +7,7 @@ class Snake
 {
 public:
     int len;
-    int s[10000][2] = {0};//0是蛇头
+    int s[10000][2] = { 0 };//0是蛇头
     int dx, dy;
     Board *board;
 
