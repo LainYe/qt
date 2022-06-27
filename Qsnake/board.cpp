@@ -2,6 +2,7 @@
 #include "snake.h"
 #include <cstring>
 #include <ctime>
+#include <cmath>
 #include <iostream>
 #include <fstream>
 

@@ -24,9 +24,9 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QPushButton" name="taskmode">
+     <widget class="QPushButton" name="singlemode">
       <property name="text">
-       <string>任务模式</string>
+       <string>单人模式</string>
       </property>
      </widget>
     </item>

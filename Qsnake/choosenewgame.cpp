@@ -25,7 +25,17 @@ ChooseNewGame::ChooseNewGame(QWidget *parent) :
         EndlessMode *endlessmode = new EndlessMode(this);
         endlessmode->show();
     });
-
+    //新游戏“单人模式”
+    connect(ui->singlemode, &QPushButton::clicked,[=](){
+        hide();
+        QMessageBox box(QMessageBox::Question,"进入单人模式","单人模式：活下去，获得尽可能高的分数！",
+                        QMessageBox::Yes|QMessageBox::No,this);
+        box.setButtonText(QMessageBox::Yes,"进入游戏！");
+        box.setButtonText(QMessageBox::No,"再想想...");
+        box.exec();
+        SingleMode *singlemode = new SingleMode(this);
+        singlemode->show();
+    });
 
 }
 

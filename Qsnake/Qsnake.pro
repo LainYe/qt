@@ -17,6 +17,7 @@ SOURCES += \
     pause.cpp \
     readfile.cpp \
     rules.cpp \
+    singlemode.cpp \
     snake.cpp \
     test.cpp
 
@@ -33,6 +34,7 @@ HEADERS += \
     pause.h \
     readfile.h \
     rules.h \
+    singlemode.h \
     snake.h \
     test.h
 
@@ -42,7 +44,8 @@ FORMS += \
     mainwindow.ui \
     pause.ui \
     readfile.ui \
-    rules.ui
+    rules.ui \
+    singlemode.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

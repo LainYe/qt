@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "mainwindow.h"
 #include "endlessmode.h"
+#include "singlemode.h"
 
 namespace Ui {
 class ChooseNewGame;
