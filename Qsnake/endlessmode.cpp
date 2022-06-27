@@ -225,7 +225,7 @@ void EndlessMode:: timerEvent()
 
 }
 
-void EndlessMode::saveFile(std::string fileName)
+int EndlessMode::saveFile(std::string fileName)
 {
     std::ifstream infile(fileName);//先看看有没有重名文件
     if(infile)
@@ -268,12 +268,14 @@ void EndlessMode::saveFile(std::string fileName)
                 outfile << board->snake2->dx << " ";
                 outfile << board->snake2->dy << " ";
              }
+            infile.close();
             outfile.close();
+            return 0;
         }
         else
         {
             infile.close();
-            return;
+            return 1;
         }
     }
     else
@@ -311,5 +313,5 @@ void EndlessMode::saveFile(std::string fileName)
          }
         outfile.close();
     }
-
+    return 0;
 }

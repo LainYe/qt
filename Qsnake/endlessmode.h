@@ -28,7 +28,7 @@ public:
 
     void paintEvent(QPaintEvent *);//重写绘图函数
     void keyPressEvent(QKeyEvent *);//重写键盘事件函数
-    void saveFile(std::string);//存档函数
+    int saveFile(std::string);//存档函数,因为重名放弃存档返回1
 
 public slots:
     void timerEvent();//计时器到时的槽函数

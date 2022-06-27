@@ -27,7 +27,7 @@ readFile::readFile(QWidget *parent) :
         father->show();
     });
     connect(ui->choosefile, &QPushButton::clicked,[=](){
-        QString filepath = QFileDialog::getOpenFileName(this,"请选择游戏存档","C:\\Users\\abc\\Desktop","(*txt)");
+        QString filepath = QFileDialog::getOpenFileName(this,"请选择游戏存档","saves\\","(*txt)");
         QString dirpath = QDir::currentPath();
         filepath = filepath.mid(dirpath.length()+1);
         filepath = filepath.mid(6);//去掉"saves/"
@@ -36,9 +36,9 @@ readFile::readFile(QWidget *parent) :
         char* filename = a.data();
         qDebug()<<filename;
         fstream infile(filename,ios::in);
-        this->hide();
-        EndlessMode *endlessmode = new EndlessMode(this->father);
         if(infile){
+            this->hide();
+            EndlessMode *endlessmode = new EndlessMode(this->father);
             infile >> endlessmode->board->score;
             infile >> endlessmode->board->maxScore;
             infile >> endlessmode->board->move_interval;
