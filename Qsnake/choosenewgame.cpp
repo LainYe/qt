@@ -1,5 +1,8 @@
 ﻿#include "choosenewgame.h"
 #include "ui_choosenewgame.h"
+#include "QMessageBox"
+
+# pragma execution_character_set("utf-8")
 
 ChooseNewGame::ChooseNewGame(QWidget *parent) :
     QWidget(parent),
@@ -14,6 +17,11 @@ ChooseNewGame::ChooseNewGame(QWidget *parent) :
     //新游戏“无尽模式”
     connect(ui->endlessmode, &QPushButton::clicked,[=](){
         hide();
+        QMessageBox box(QMessageBox::Question,"进入无尽模式","无尽模式：去获得尽可能高的分数！",
+                        QMessageBox::Yes|QMessageBox::No,this);
+        box.setButtonText(QMessageBox::Yes,"进入游戏！");
+        box.setButtonText(QMessageBox::No,"再想想...");
+        box.exec();
         EndlessMode *endlessmode = new EndlessMode(this);
         endlessmode->show();
     });

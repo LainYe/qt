@@ -32,16 +32,14 @@ readFile::readFile(QWidget *parent) :
         QString filepath = QFileDialog::getOpenFileName(this,"请选择游戏存档","C:\\Users\\abc\\Desktop");
         QString dirpath = QDir::currentPath();
         filepath = filepath.mid(dirpath.length()+1);
-        QString res = filepath + QString(".txt");
-        QByteArray a = res.toLatin1();
+        QByteArray a = filepath.toLatin1();
         char* filename = a.data();
         qDebug()<<filename;
-        fstream infile("endlessmode_game.txt",ios::in);
+        fstream infile(filename,ios::in);
         this->hide();
         EndlessMode *endlessmode = new EndlessMode(this->father);
         if(infile){
             infile >> endlessmode->board->score;
-            qDebug()<<endlessmode->board->score;
             infile >> endlessmode->board->maxScore;
             infile >> endlessmode->board->move_interval;
             infile >> endlessmode->board->food_interval;
@@ -56,7 +54,7 @@ readFile::readFile(QWidget *parent) :
             infile >> endlessmode->board->snake->len;
             for(int i = 0; i < endlessmode->board->snake->len; ++i)
             {
-                infile >> endlessmode->board->snake->s[i][0] >> endlessmode->board->snake->s[0][1];
+                infile >> endlessmode->board->snake->s[i][0] >> endlessmode->board->snake->s[i][1];
             }
             infile >> endlessmode->board->snake->dx;
             infile >> endlessmode->board->snake->dy;
@@ -65,7 +63,7 @@ readFile::readFile(QWidget *parent) :
                 infile >> endlessmode->board->snake2->len;
                 for(int i = 0; i < endlessmode->board->snake2->len; ++i)
                 {
-                    infile >> endlessmode->board->snake2->s[i][0] >> endlessmode->board->snake2->s[0][1];
+                    infile >> endlessmode->board->snake2->s[i][0] >> endlessmode->board->snake2->s[i][1];
                 }
                 infile >> endlessmode->board->snake2->dx;
                 infile >> endlessmode->board->snake2->dy;

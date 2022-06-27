@@ -252,7 +252,7 @@ void EndlessMode::saveFile(std::string fileName)
             outfile << board->snake->len << " ";
             for(int i = 0; i < board->snake->len; ++i)
             {
-                outfile << board->snake->s[i][0] << " " << board->snake->s[0][1] << " ";
+                outfile << board->snake->s[i][0] << " " << board->snake->s[i][1] << " ";
             }
             outfile << endl;
             outfile << board->snake->dx << " ";
@@ -262,7 +262,7 @@ void EndlessMode::saveFile(std::string fileName)
                 outfile << board->snake2->len << " ";
                 for(int i = 0; i < board->snake2->len; ++i)
                 {
-                    outfile << board->snake2->s[i][0] << " " << board->snake2->s[0][1] << " ";
+                    outfile << board->snake2->s[i][0] << " " << board->snake2->s[i][1] << " ";
                 }
                 outfile << endl;
                 outfile << board->snake2->dx << " ";

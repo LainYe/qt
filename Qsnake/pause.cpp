@@ -2,6 +2,12 @@
 #include "ui_pause.h"
 #include <QPushButton>
 #include <QTimer>
+#include <QInputDialog>
+#include <QString>
+#include <QByteArray>
+
+# pragma execution_character_set("utf-8")
+
 Pause::Pause(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Pause)
@@ -17,7 +23,9 @@ Pause::Pause(QWidget *parent) :
         father->timer2->start();
     });
     connect(ui->save, &QPushButton::clicked,[=](){
-        father->saveFile("endlessmode_game.txt");
+        QString filename = QInputDialog::getText(this,"游戏存档","请输入文件名:");
+        QByteArray arr = filename.toLatin1();
+        father->saveFile(arr.data());
         hide();
         father->hide();
         father->father->show();
