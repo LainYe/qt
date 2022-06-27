@@ -27,9 +27,7 @@ readFile::readFile(QWidget *parent) :
         father->show();
     });
     connect(ui->choosefile, &QPushButton::clicked,[=](){
-        char buffer[256];
-        _getcwd(buffer,sizeof(buffer));
-        QString filepath = QFileDialog::getOpenFileName(this,"请选择游戏存档","C:\\Users\\abc\\Desktop");
+        QString filepath = QFileDialog::getOpenFileName(this,"请选择游戏存档","C:\\Users\\abc\\Desktop","(*txt)");
         QString dirpath = QDir::currentPath();
         filepath = filepath.mid(dirpath.length()+1);
         QByteArray a = filepath.toLatin1();
