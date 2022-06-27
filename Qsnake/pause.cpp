@@ -25,6 +25,7 @@ Pause::Pause(QWidget *parent) :
     });
     connect(ui->save, &QPushButton::clicked,[=](){
         QString filename = QInputDialog::getText(this,"游戏存档","请输入文件名:");
+        filename = QString("saves\\") + filename;
         QByteArray arr = filename.toLatin1();
         father->saveFile(arr.data());
         father->pause = 0;

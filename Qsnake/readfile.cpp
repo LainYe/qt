@@ -30,6 +30,8 @@ readFile::readFile(QWidget *parent) :
         QString filepath = QFileDialog::getOpenFileName(this,"请选择游戏存档","C:\\Users\\abc\\Desktop","(*txt)");
         QString dirpath = QDir::currentPath();
         filepath = filepath.mid(dirpath.length()+1);
+        filepath = filepath.mid(6);//去掉"saves/"
+        filepath = QString("saves\\\\") + filepath;
         QByteArray a = filepath.toLatin1();
         char* filename = a.data();
         qDebug()<<filename;

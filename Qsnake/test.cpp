@@ -1,7 +1,8 @@
-#include <cstdlib>
+﻿#include <cstdlib>
 #include <string>
 #include <io.h>
 using namespace std;
+
 bool initial_test()
 {
     string command;

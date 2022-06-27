@@ -17,7 +17,8 @@ SOURCES += \
     pause.cpp \
     readfile.cpp \
     rules.cpp \
-    snake.cpp
+    snake.cpp \
+    test.cpp
 
 HEADERS += \
     ../../AppData/Local/Temp/QtCreator-qNinqE/clang-uiheader-svwyQf/ui_choosenewgame.h \
@@ -32,7 +33,8 @@ HEADERS += \
     pause.h \
     readfile.h \
     rules.h \
-    snake.h
+    snake.h \
+    test.h
 
 FORMS += \
     choosenewgame.ui \
