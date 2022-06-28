@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "endlessmode.h"
+#include "singlemode.h"
 
 namespace Ui {
 class Pause;
@@ -13,10 +14,11 @@ class Pause : public QWidget
     Q_OBJECT
 
 public:
-    explicit Pause(QWidget *parent = nullptr);
+    explicit Pause(QWidget *parent = nullptr, int mode = 0);
     ~Pause();
-    EndlessMode *father;
-
+    EndlessMode *father1 = 0;
+    SingleMode *father2 = 0;
+    //twoplayer *father3 = 0;
 private:
     Ui::Pause *ui;
 };

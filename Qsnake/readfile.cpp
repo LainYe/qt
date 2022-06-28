@@ -9,6 +9,7 @@
 #include "fstream"
 #include <QMessageBox>
 #include "endlessmode.h"
+#include "singlemode.h"
 #include "QDebug"
 #include "QByteArray"
 #include "QFile"
@@ -35,41 +36,80 @@ readFile::readFile(QWidget *parent) :
         QByteArray a = filepath.toLatin1();
         char* filename = a.data();
         qDebug()<<filename;
+
+        int mode = 0;
         fstream infile(filename,ios::in);
         if(infile){
             this->hide();
-            EndlessMode *endlessmode = new EndlessMode(this->father);
-            infile >> endlessmode->board->score;
-            infile >> endlessmode->board->maxScore;
-            infile >> endlessmode->board->move_interval;
-            infile >> endlessmode->board->food_interval;
-            infile >> endlessmode->board->length;
-            for(int i = 0; i < 500; ++i)
-            {
-                for(int j = 0; j < 500; ++j)
+            infile >> mode;
+            if(mode == 1){
+                EndlessMode *endlessmode = new EndlessMode(this->father);
+                infile >> endlessmode->board->score;
+                infile >> endlessmode->board->maxScore;
+                infile >> endlessmode->board->move_interval;
+                infile >> endlessmode->board->food_interval;
+                infile >> endlessmode->board->length;
+                for(int i = 0; i < 500; ++i)
                 {
-                    infile >> endlessmode->board->map[i][j];
+                    for(int j = 0; j < 500; ++j)
+                    {
+                        infile >> endlessmode->board->map[i][j];
+                    }
                 }
-            }
-            infile >> endlessmode->board->snake->len;
-            for(int i = 0; i < endlessmode->board->snake->len; ++i)
-            {
-                infile >> endlessmode->board->snake->s[i][0] >> endlessmode->board->snake->s[i][1];
-            }
-            infile >> endlessmode->board->snake->dx;
-            infile >> endlessmode->board->snake->dy;
-            if(endlessmode->board->snake2)
-            {
-                infile >> endlessmode->board->snake2->len;
-                for(int i = 0; i < endlessmode->board->snake2->len; ++i)
+                infile >> endlessmode->board->snake->len;
+                for(int i = 0; i < endlessmode->board->snake->len; ++i)
                 {
-                    infile >> endlessmode->board->snake2->s[i][0] >> endlessmode->board->snake2->s[i][1];
+                    infile >> endlessmode->board->snake->s[i][0] >> endlessmode->board->snake->s[i][1];
                 }
-                infile >> endlessmode->board->snake2->dx;
-                infile >> endlessmode->board->snake2->dy;
+                infile >> endlessmode->board->snake->dx;
+                infile >> endlessmode->board->snake->dy;
+                if(endlessmode->board->snake2)
+                {
+                    infile >> endlessmode->board->snake2->len;
+                    for(int i = 0; i < endlessmode->board->snake2->len; ++i)
+                    {
+                        infile >> endlessmode->board->snake2->s[i][0] >> endlessmode->board->snake2->s[i][1];
+                    }
+                    infile >> endlessmode->board->snake2->dx;
+                    infile >> endlessmode->board->snake2->dy;
+                }
+                infile.close();
+                endlessmode->show();
             }
-            infile.close();
-            endlessmode->show();
+            else if(mode == 2){
+                SingleMode *singlemode = new SingleMode(this->father);
+                infile >> singlemode->board->score;
+                infile >> singlemode->board->maxScore;
+                infile >> singlemode->board->move_interval;
+                infile >> singlemode->board->food_interval;
+                infile >> singlemode->board->length;
+                for(int i = 0; i < 500; ++i)
+                {
+                    for(int j = 0; j < 500; ++j)
+                    {
+                        infile >> singlemode->board->map[i][j];
+                    }
+                }
+                infile >> singlemode->board->snake->len;
+                for(int i = 0; i < singlemode->board->snake->len; ++i)
+                {
+                    infile >> singlemode->board->snake->s[i][0] >> singlemode->board->snake->s[i][1];
+                }
+                infile >> singlemode->board->snake->dx;
+                infile >> singlemode->board->snake->dy;
+                if(singlemode->board->snake2)
+                {
+                    infile >> singlemode->board->snake2->len;
+                    for(int i = 0; i < singlemode->board->snake2->len; ++i)
+                    {
+                        infile >> singlemode->board->snake2->s[i][0] >> singlemode->board->snake2->s[i][1];
+                    }
+                    infile >> singlemode->board->snake2->dx;
+                    infile >> singlemode->board->snake2->dy;
+                }
+                infile.close();
+                singlemode->show();
+            }
         }
     });
 

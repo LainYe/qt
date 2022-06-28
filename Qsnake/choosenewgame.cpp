@@ -21,7 +21,8 @@ ChooseNewGame::ChooseNewGame(QWidget *parent) :
                         QMessageBox::Yes|QMessageBox::No,this);
         box.setButtonText(QMessageBox::Yes,"进入游戏！");
         box.setButtonText(QMessageBox::No,"再想想...");
-        box.exec();
+        int tmp = box.exec();
+
         EndlessMode *endlessmode = new EndlessMode(this);
         endlessmode->show();
     });

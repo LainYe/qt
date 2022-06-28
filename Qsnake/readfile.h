@@ -15,7 +15,7 @@ class readFile : public QWidget
 public:
     explicit readFile(QWidget *parent = nullptr);
     ~readFile();
-    MainWindow *father;
+    QWidget *father;
 
 private:
     Ui::readFile *ui;

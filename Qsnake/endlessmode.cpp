@@ -114,7 +114,7 @@ void EndlessMode::keyPressEvent(QKeyEvent *event)
         timer->stop();
         timer2->stop();
         pause = 1;
-        Pause *_pause = new Pause(this);
+        Pause *_pause = new Pause(this, this->mode);
         _pause->show();
 
     }
@@ -236,6 +236,7 @@ int EndlessMode::saveFile(std::string fileName)
         {
             std::ofstream outfile;
             outfile.open(fileName);
+            outfile << mode << " ";
             outfile << board->score << " ";
             outfile << board->maxScore << " ";
             outfile << board->move_interval << " ";

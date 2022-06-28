@@ -1,4 +1,4 @@
-#include "singlemode.h"
+﻿#include "singlemode.h"
 #include "ui_singlemode.h"
 #include "pause.h"
 #include <QPainter>
@@ -10,8 +10,8 @@
 #include <QString>
 
 using namespace std;
-
 # pragma execution_character_set("utf-8")
+
 
 SingleMode::SingleMode(QWidget *_father) :
     QWidget(),
@@ -114,7 +114,7 @@ void SingleMode::keyPressEvent(QKeyEvent *event)
         timer->stop();
         timer2->stop();
         pause = 1;
-        Pause *_pause = new Pause(this);
+        Pause *_pause = new Pause(this, this->mode);
         _pause->show();
 
     }
@@ -236,6 +236,7 @@ int SingleMode::saveFile(std::string fileName)
         {
             std::ofstream outfile;
             outfile.open(fileName);
+            outfile << mode << " ";
             outfile << board->score << " ";
             outfile << board->maxScore << " ";
             outfile << board->move_interval << " ";

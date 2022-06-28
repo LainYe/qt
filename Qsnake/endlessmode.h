@@ -21,6 +21,7 @@ public:
     ~EndlessMode();
     bool pause;//是否暂停状态
     bool flag;//用来保证1个时间间隔只处理一个有效键盘事件
+    int mode = 1;
     QTimer *timer;//计时器
     QTimer *timer2;//用于生成食物
     Board *board;//地图
