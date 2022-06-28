@@ -128,7 +128,8 @@ readFile::readFile(QWidget *parent, int mode) :
         else if(mode==0)
         {
 
-            QString filepath = QFileDialog::getOpenFileName(this,"请选择游戏存档","saves\\","(*endless)(*single)(*pair)");
+            QString filepath = QFileDialog::getOpenFileName(this,"请选择游戏存档","saves\\",
+                                                            "ALL FILES(*.endless *.single *.pair);;ENDLESS(*.endless);;SINGLE(*.single);;PAIR(*.pair)");
             QString dirpath = QDir::currentPath();
             filepath = filepath.mid(dirpath.length()+1);
             filepath = filepath.mid(6);//去掉"saves/"
