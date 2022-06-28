@@ -89,7 +89,7 @@ public:
         Pause->setWindowTitle(QApplication::translate("Pause", "Form", nullptr));
         back->setText(QApplication::translate("Pause", "\345\233\236\345\210\260\346\270\270\346\210\217", nullptr));
         read->setText(QApplication::translate("Pause", "\350\257\273\346\241\243", nullptr));
-        save->setText(QApplication::translate("Pause", "\345\255\230\346\241\243\351\200\200\345\207\272", nullptr));
+        save->setText(QApplication::translate("Pause", "\345\255\230\346\241\243", nullptr));
         exit->setText(QApplication::translate("Pause", "\347\273\223\346\235\237\346\270\270\346\210\217", nullptr));
     } // retranslateUi
 

@@ -283,6 +283,7 @@ int SingleMode::saveFile(std::string fileName)
     {
         std::ofstream outfile;
         outfile.open(fileName);
+        outfile << mode << " ";
         outfile << board->score << " ";
         outfile << board->maxScore << " ";
         outfile << board->move_interval << " ";

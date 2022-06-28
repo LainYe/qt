@@ -32,7 +32,7 @@ Pause::Pause(QWidget *parent, int mode) :
             if(filename.length() == 0){
                 return;
             }
-            filename = QString("saves\\") + filename + QString(".txt");
+            filename = QString("saves\\") + filename + QString(".endless");
             qDebug()<<filename;
             QByteArray arr = filename.toLatin1();
             if(father1->saveFile(arr.data())){
@@ -51,7 +51,7 @@ Pause::Pause(QWidget *parent, int mode) :
         });
         connect(ui->read, &QPushButton::clicked,[=](){
             if(QMessageBox::Yes == QMessageBox::question(0,"读档","本局游戏将丢失！继续吗")){
-                readFile *readf = new readFile();
+                readFile *readf = new readFile(nullptr,mode);
                 readf->father = father1->father;
                 delete father1;
                 readf->show();
@@ -73,7 +73,7 @@ Pause::Pause(QWidget *parent, int mode) :
             if(filename.length() == 0){
                 return;
             }
-            filename = QString("saves\\") + filename + QString(".txt");
+            filename = QString("saves\\") + filename + QString(".single");
             qDebug()<<filename;
             QByteArray arr = filename.toLatin1();
             if(father2->saveFile(arr.data())){
@@ -92,7 +92,7 @@ Pause::Pause(QWidget *parent, int mode) :
         });
         connect(ui->read, &QPushButton::clicked,[=](){
             if(QMessageBox::Yes == QMessageBox::question(0,"读档","本局游戏将丢失！继续吗")){
-                readFile *readf = new readFile();
+                readFile *readf = new readFile(nullptr,mode);
                 readf->father = father2->father;
                 delete father2;
                 readf->show();

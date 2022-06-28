@@ -22,13 +22,9 @@ ChooseNewGame::ChooseNewGame(QWidget *parent) :
         box.setButtonText(QMessageBox::Yes,"进入游戏！");
         box.setButtonText(QMessageBox::No,"再想想...");
         int tmp = box.exec();
-        if(tmp == QMessageBox::Yes){
-            EndlessMode *endlessmode = new EndlessMode(this);
-            endlessmode->show();
-        }
-        else{
-            show();
-        }
+
+        EndlessMode *endlessmode = new EndlessMode(this);
+        endlessmode->show();
     });
     //新游戏“单人模式”
     connect(ui->singlemode, &QPushButton::clicked,[=](){
@@ -37,14 +33,9 @@ ChooseNewGame::ChooseNewGame(QWidget *parent) :
                         QMessageBox::Yes|QMessageBox::No,this);
         box.setButtonText(QMessageBox::Yes,"进入游戏！");
         box.setButtonText(QMessageBox::No,"再想想...");
-        int tmp = box.exec();
-        if(tmp == QMessageBox::Yes){
-            SingleMode *singlemode = new SingleMode(this);
-            singlemode->show();
-        }
-        else{
-            show();
-        }
+        box.exec();
+        SingleMode *singlemode = new SingleMode(this);
+        singlemode->show();
     });
 
 }

@@ -13,7 +13,8 @@ class readFile : public QWidget
     Q_OBJECT
 
 public:
-    explicit readFile(QWidget *parent = nullptr);
+
+    explicit readFile(QWidget *parent = nullptr, int mode = 0);
     ~readFile();
     QWidget *father;
 

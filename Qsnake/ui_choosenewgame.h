@@ -24,7 +24,7 @@ public:
     QVBoxLayout *verticalLayout;
     QPushButton *singlemode;
     QPushButton *endlessmode;
-    QPushButton *player2mode;
+    QPushButton *pairmode;
     QPushButton *pushButton_4;
 
     void setupUi(QWidget *ChooseNewGame)
@@ -47,10 +47,10 @@ public:
 
         verticalLayout->addWidget(endlessmode);
 
-        player2mode = new QPushButton(widget);
-        player2mode->setObjectName(QString::fromUtf8("player2mode"));
+        pairmode = new QPushButton(widget);
+        pairmode->setObjectName(QString::fromUtf8("pairmode"));
 
-        verticalLayout->addWidget(player2mode);
+        verticalLayout->addWidget(pairmode);
 
         pushButton_4 = new QPushButton(ChooseNewGame);
         pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
@@ -66,7 +66,7 @@ public:
         ChooseNewGame->setWindowTitle(QApplication::translate("ChooseNewGame", "Form", nullptr));
         singlemode->setText(QApplication::translate("ChooseNewGame", "\345\215\225\344\272\272\346\250\241\345\274\217", nullptr));
         endlessmode->setText(QApplication::translate("ChooseNewGame", "\346\227\240\345\260\275\346\250\241\345\274\217", nullptr));
-        player2mode->setText(QApplication::translate("ChooseNewGame", "\345\217\214\344\272\272\346\250\241\345\274\217", nullptr));
+        pairmode->setText(QApplication::translate("ChooseNewGame", "\345\217\214\344\272\272\346\250\241\345\274\217", nullptr));
         pushButton_4->setText(QApplication::translate("ChooseNewGame", "back", nullptr));
     } // retranslateUi
 
