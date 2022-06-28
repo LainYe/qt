@@ -5,7 +5,8 @@
 
 int main(int argc, char *argv[])
 {
-    initial_test();
+    if(!initial_test())
+        return 0;
     QApplication a(argc, argv);
     MainWindow w;
     w.show();

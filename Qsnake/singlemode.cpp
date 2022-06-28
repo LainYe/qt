@@ -24,6 +24,13 @@ SingleMode::SingleMode(QWidget *_father) :
     board = new Board(20);
     pause = 0;
     flag = 0;
+
+
+
+
+
+
+
     //初始化定时器
     timer = new QTimer(this);
     timer->setInterval(board->move_interval);
@@ -241,31 +248,31 @@ int SingleMode::saveFile(std::string fileName)
             outfile << board->maxScore << " ";
             outfile << board->move_interval << " ";
             outfile << board->food_interval << " ";
-            outfile << board->length << " ";
+            outfile << board->length << " \n";
             for(int i = 0; i < 500; ++i)
             {
                 for(int j = 0; j < 500; ++j)
                 {
                     outfile << board->map[i][j] << " ";
                 }
-                outfile << endl;
+                outfile << '\n';
             }
-            outfile << board->snake->len << " ";
+            outfile << board->snake->len << " \n";
             for(int i = 0; i < board->snake->len; ++i)
             {
                 outfile << board->snake->s[i][0] << " " << board->snake->s[i][1] << " ";
             }
-            outfile << endl;
+            outfile << '\n';
             outfile << board->snake->dx << " ";
-            outfile << board->snake->dy << " ";
+            outfile << board->snake->dy << " \n";
             if(board->snake2)
             {
-                outfile << board->snake2->len << " ";
+                outfile << board->snake2->len << " \n";
                 for(int i = 0; i < board->snake2->len; ++i)
                 {
                     outfile << board->snake2->s[i][0] << " " << board->snake2->s[i][1] << " ";
                 }
-                outfile << endl;
+                outfile << '\n';
                 outfile << board->snake2->dx << " ";
                 outfile << board->snake2->dy << " ";
              }
@@ -288,28 +295,31 @@ int SingleMode::saveFile(std::string fileName)
         outfile << board->maxScore << " ";
         outfile << board->move_interval << " ";
         outfile << board->food_interval << " ";
-        outfile << board->length << " ";
+        outfile << board->length << " \n";
         for(int i = 0; i < 500; ++i)
         {
             for(int j = 0; j < 500; ++j)
             {
                 outfile << board->map[i][j] << " ";
             }
+            outfile<<'\n';
         }
-        outfile << board->snake->len << " ";
+        outfile << board->snake->len << " \n";
         for(int i = 0; i < board->snake->len; ++i)
         {
-            outfile << board->snake->s[i][0] << " " << board->snake->s[0][1] << " ";
+            outfile << board->snake->s[i][0] << " " << board->snake->s[i][1] << " ";
         }
+        outfile << '\n';
         outfile << board->snake->dx << " ";
-        outfile << board->snake->dy << " ";
+        outfile << board->snake->dy << " \n";
         if(board->snake2)
         {
-            outfile << board->snake2->len << " ";
+            outfile << board->snake2->len << " \n";
             for(int i = 0; i < board->snake2->len; ++i)
             {
-                outfile << board->snake2->s[i][0] << " " << board->snake2->s[0][1] << " ";
+                outfile << board->snake2->s[i][0] << " " << board->snake2->s[i][1] << " ";
             }
+            outfile << '\n';
             outfile << board->snake2->dx << " ";
             outfile << board->snake2->dy << " ";
          }

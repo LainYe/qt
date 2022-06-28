@@ -69,9 +69,9 @@ public:
         QTreeWidgetItem *___qtreewidgetitem3 = treeWidget->topLevelItem(1);
         ___qtreewidgetitem3->setText(0, QApplication::translate("Rules", "\346\270\270\346\210\217\346\250\241\345\274\217", nullptr));
         QTreeWidgetItem *___qtreewidgetitem4 = ___qtreewidgetitem3->child(0);
-        ___qtreewidgetitem4->setText(0, QApplication::translate("Rules", "\346\227\240\345\260\275\346\250\241\345\274\217", nullptr));
+        ___qtreewidgetitem4->setText(0, QApplication::translate("Rules", "\345\215\225\344\272\272\346\250\241\345\274\217", nullptr));
         QTreeWidgetItem *___qtreewidgetitem5 = ___qtreewidgetitem3->child(1);
-        ___qtreewidgetitem5->setText(0, QApplication::translate("Rules", "\344\273\273\345\212\241\346\250\241\345\274\217", nullptr));
+        ___qtreewidgetitem5->setText(0, QApplication::translate("Rules", "\346\227\240\345\260\275\346\250\241\345\274\217", nullptr));
         QTreeWidgetItem *___qtreewidgetitem6 = ___qtreewidgetitem3->child(2);
         ___qtreewidgetitem6->setText(0, QApplication::translate("Rules", "\345\217\214\344\272\272\346\250\241\345\274\217", nullptr));
         treeWidget->setSortingEnabled(__sortingEnabled);
