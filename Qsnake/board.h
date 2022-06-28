@@ -7,6 +7,7 @@
 class Board
 {
 public:
+    int mode;
     int score;//当前分数
     int maxScore;//最高分
     int move_interval;//每次移动的间隔时间
@@ -17,10 +18,11 @@ public:
     Snake *snake;
     Snake *snake2 = 0;
 
-    Board(int);//给定length
+    Board(int,int);//给定length
     void makeFood();
     void reset_interval();//调整速度
     void get_score();//得分
+    void reset_size(int,int);
 };
 
 #endif // BOARD_H

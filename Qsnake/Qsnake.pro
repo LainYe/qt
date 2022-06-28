@@ -22,11 +22,6 @@ SOURCES += \
     test.cpp
 
 HEADERS += \
-    ../../AppData/Local/Temp/QtCreator-qNinqE/clang-uiheader-svwyQf/ui_choosenewgame.h \
-    ../../AppData/Local/Temp/QtCreator-qNinqE/clang-uiheader-svwyQf/ui_endlessmode.h \
-    ../../AppData/Local/Temp/QtCreator-qNinqE/clang-uiheader-svwyQf/ui_mainwindow.h \
-    ../../AppData/Local/Temp/QtCreator-qNinqE/clang-uiheader-svwyQf/ui_mainwindow.h \
-    ../../AppData/Local/Temp/QtCreator-qNinqE/clang-uiheader-svwyQf/ui_rules.h \
     board.h \
     choosenewgame.h \
     endlessmode.h \
@@ -52,6 +47,4 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES += \
-    maps.qrc \
-    maps.qrc
+RESOURCES +=

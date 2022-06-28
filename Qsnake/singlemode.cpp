@@ -21,14 +21,9 @@ SingleMode::SingleMode(QWidget *_father) :
     father = _father;
 
     setWindowTitle("贪吃蛇 单人模式");
-    board = new Board(20);
+    board = new Board(20,2);
     pause = 0;
     flag = 0;
-
-
-
-
-
 
 
     //初始化定时器
@@ -58,40 +53,34 @@ SingleMode::~SingleMode()
 void SingleMode::paintEvent(QPaintEvent *ev)
 {
     QPainter painter(this);//设置画家区域
-    painter.setPen(Qt::lightGray);
+    int Rectsize = 20;
 
-    //画出地图
-    for(int i=0; i<=board->length+1; i++)
+    for(int i = 0; i <= board->length + 1; ++i)
     {
-        painter.drawRect(0*20, i*20, 20, 20);
-        painter.drawRect((board->length+1)*20, i*20, 20, 20);
-        painter.drawRect(i*20, 0*20, 20, 20);
-        painter.drawRect(i*20, (board->length+1)*20, 20, 20);
-    }
-
-    //蛇身
-    painter.setBrush(Qt::white);
-    for(int i=1; i<board->snake->len; i++)
-        painter.drawRect(board->snake->s[i][1]*20, board->snake->s[i][0]*20, 20, 20);
-
-    //蛇头
-    painter.setBrush(Qt::darkGreen);
-    painter.drawRect(board->snake->s[0][1]*20,
-            board->snake->s[0][0]*20, 20, 20);
-
-    //食物
-    painter.setBrush(Qt::yellow);
-    for(int i = 1; i <= board->length; ++i)
-    {
-        for(int j = 1; j <= board->length; ++j)
+        for(int j = 0; j <= board->length+ 1; ++j)
         {
-            if(board->map[i][j] == 2)
+            if(board->map[i][j] == 2)//食物
             {
-                painter.drawRect(j*20,i*20,20,20);
+                painter.setBrush(Qt::yellow);
+                painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
             }
-        }
-    }
-
+            else if(board->map[i][j] == 1){//空地
+                continue;
+            }
+            else if(board->map[i][j] == 0 || board->map[i][j] == 3 || board->map[i][j] == 4){//蛇
+                painter.setBrush(Qt::white);
+                if(i == board->snake->s[0][0] && j == board->snake->s[0][1])
+                    painter.setBrush(Qt::darkGreen);
+                if(board->snake2 && i == board->snake2->s[0][0] && j == board->snake2->s[0][1])
+                    painter.setBrush(Qt::darkGreen);
+                painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
+            }
+            else if(board->map[i][j] == -1){
+                painter.setBrush(Qt::lightGray);
+                painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
+            }
+         }
+      }
     //游戏信息
     //字体
     QFont font;
@@ -179,7 +168,7 @@ void SingleMode:: timerEvent()
             QMessageBox::question(this, tr("Game Over"), tr("蛇撞墙了，开始新游戏吗?"),
                 QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
         {
-            board = new Board(20);
+            board = new Board(20,2);
             timer->setInterval(board->move_interval);
             timer->start();
             timer2->setInterval(board->food_interval);
@@ -200,7 +189,7 @@ void SingleMode:: timerEvent()
             QMessageBox::question(this, tr("Game Over"), tr("蛇咬到自己了，开始新游戏吗?"),
                 QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
         {
-            board = new Board(20);
+            board = new Board(20,2);
             timer->setInterval(board->move_interval);
             timer->start();
             timer2->setInterval(board->food_interval);
