@@ -3,26 +3,42 @@
 #include <cstring>
 #include <ctime>
 #include <cmath>
+#include <QDebug>
 #include <iostream>
 #include <fstream>
 
 using namespace std;
 
-Board::Board(int _length)
+Board::Board(int _length,int _mode)
 {
+    mode = _mode;
     score = 0;
     move_interval = 300;
     food_interval = 5000;
     length = _length;
     snake = new Snake(this);
     //读取最大值
-    fstream file("endlessmode_maxscore.txt",ios::in);
+    fstream file;
+    if(mode == 1){
+        file.open("maxscore.endless",ios::in);
+    }
+    else if(mode == 2){
+        file.open("maxscore.single",ios::in);
+    }
+    else if(mode == 3){
+        file.open("maxscore.pair",ios::in);
+    }
     if(file){
         file >> maxScore;
+        //第一次进入游戏置成0
+        if(maxScore < score){
+            maxScore = 0;
+        }
         file.close();
     }
     else
     {
+        qDebug() << 1;
         maxScore = 0;
     }
 
@@ -71,10 +87,42 @@ void Board::get_score()
     if(score > maxScore)
     {
         maxScore = score;
-        fstream file("endlessmode_maxscore.txt",ios::out);
-        char buffer[20];
-        itoa(score,buffer,10);
-        file.write(buffer,strlen(buffer));
+        fstream file;
+        if(mode == 1){
+            file.open("maxscore.endless",ios::out);
+        }
+        else if(mode == 2){
+            file.open("maxscrore.single",ios::out);
+        }
+        else if(mode == 3){
+            file.open("maxscore.pair",ios::out);
+        }
+        file << score;
         file.close();
+    }
+}
+
+void Board::reset_size(int size_old, int size_new){
+    length = size_new;
+    for(int i = 0; i<= size_old + 1; ++i)
+    {
+        if(map[0][i] == -1) map[0][i] = 1;
+        if(map[i][0] == -1) map[i][0] = 1;
+        if(map[size_old + 1][i] == -1) map[size_old + 1][i] = 1;
+        if(map[i][size_old + 1] == -1) map[i][size_old + 1] = 1;
+    }
+    for(int i = 0; i<= size_new + 1; ++i)
+    {
+        map[0][i] = -1;
+        map[i][0] = -1;
+        map[size_new + 1][i] = -1;
+        map[i][size_new + 1] = -1;
+    }
+    for(int i = 0; i <= size_new + 1; ++i){
+        for(int j = 0; j <= size_new + 1;++j){
+            if(map[i][j] < -1 || map[i][j] > 4){
+                map[i][j] = 1;
+            }
+        }
     }
 }
