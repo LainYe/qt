@@ -10,7 +10,7 @@ hahaha
 
 双人模式(pairmode)文件名 .pair
 
-endlessmode类新增成员mode=1,singlemode类新增成员mode=2，twoplayermode类mode设定为3
+endlessmode类新增成员const int mode=1,singlemode类新增成员const int mode=2，twoplayermode类mode设定为(const int)3
 
 pause类构造函数新增参数mode，不同模式构建pause时传入自己的参数。读写文件时先读写mode值
 
