@@ -7,6 +7,7 @@
 #include "ui_rules.h"
 #include "readfile.h"
 #include "endlessmode.h"
+#include "QMessageBox"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,7 +25,18 @@ MainWindow::MainWindow(QWidget *parent)
     } );
     //主界面“退出”
     connect(ui->quit, &QPushButton::clicked,[=](){
-        this->close();
+
+        QMessageBox box(QMessageBox::Question,"退出游戏","确定退出吗？",
+                        QMessageBox::Yes|QMessageBox::No,this);
+        box.setButtonText(QMessageBox::Yes,"退出");
+        box.setButtonText(QMessageBox::No,"再想想...");
+        int tmp = box.exec();
+        if(tmp == QMessageBox::Yes){
+           this->close();
+        }
+        else{
+            show();
+        }
     });
     //主界面“规则”
     connect(ui->rules, &QPushButton::clicked,[=](){

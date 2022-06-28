@@ -20,7 +20,7 @@ EndlessMode::EndlessMode(QWidget *_father) :
     ui->setupUi(this);
     father = _father;
 
-    setWindowTitle("贪吃蛇");
+    setWindowTitle("贪吃蛇 无尽模式");
     board = new Board(20);
     pause = 0;
     flag = 0;

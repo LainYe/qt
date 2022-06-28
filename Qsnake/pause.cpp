@@ -44,10 +44,13 @@ Pause::Pause(QWidget *parent, int mode) :
             delete this;
         });
         connect(ui->exit, &QPushButton::clicked,[=](){
-            hide();
-            father1->hide();
-            father1->father->show();
-            delete father1;
+            if(QMessageBox::Yes == QMessageBox::question(0,"退出无尽模式","本局游戏将丢失！继续吗")){
+                hide();
+                father1->hide();
+                father1->father->show();
+                delete father1;
+            }
+
         });
         connect(ui->read, &QPushButton::clicked,[=](){
             if(QMessageBox::Yes == QMessageBox::question(0,"读档","本局游戏将丢失！继续吗")){
@@ -85,10 +88,13 @@ Pause::Pause(QWidget *parent, int mode) :
             delete this;
         });
         connect(ui->exit, &QPushButton::clicked,[=](){
-            hide();
-            father2->hide();
-            father2->father->show();
-            delete father2;
+            if(QMessageBox::Yes == QMessageBox::question(0,"退出单人模式","本局游戏将丢失！继续吗")){
+                hide();
+                father2->hide();
+                father2->father->show();
+                delete father2;
+            }
+
         });
         connect(ui->read, &QPushButton::clicked,[=](){
             if(QMessageBox::Yes == QMessageBox::question(0,"读档","本局游戏将丢失！继续吗")){

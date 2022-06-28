@@ -20,7 +20,7 @@ SingleMode::SingleMode(QWidget *_father) :
     ui->setupUi(this);
     father = _father;
 
-    setWindowTitle("贪吃蛇");
+    setWindowTitle("贪吃蛇 单人模式");
     board = new Board(20);
     pause = 0;
     flag = 0;
