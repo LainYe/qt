@@ -29,18 +29,18 @@ readFile::readFile(QWidget *parent, int mode) :
     });
     connect(ui->choosefile, &QPushButton::clicked,[=](){
         if(mode == 1){
-        QString filepath = QFileDialog::getOpenFileName(this,"请选择游戏存档","saves\\","(*endless)");
-        QString dirpath = QDir::currentPath();
-        filepath = filepath.mid(dirpath.length()+1);
-        filepath = filepath.mid(6);//去掉"saves/"
-        filepath = QString("saves\\\\") + filepath;
-        QByteArray a = filepath.toLatin1();
-        char* filename = a.data();
-        qDebug()<<filename;
+            QString filepath = QFileDialog::getOpenFileName(this,"请选择游戏存档","saves\\","(*endless)");
+            QString dirpath = QDir::currentPath();
+            filepath = filepath.mid(dirpath.length()+1);
+            filepath = filepath.mid(6);//去掉"saves/"
+            filepath = QString("saves\\\\") + filepath;
+            QByteArray a = filepath.toLatin1();
+            char* filename = a.data();
+            qDebug()<<filename;
 
-        fstream infile(filename,ios::in);
-        if(infile){
-            this->hide();
+            fstream infile(filename,ios::in);
+            if(infile){
+                this->hide();
                 EndlessMode *endlessmode = new EndlessMode(this->father);
                 infile.get();
                 infile >> endlessmode->board->score;
@@ -76,7 +76,7 @@ readFile::readFile(QWidget *parent, int mode) :
                 endlessmode->show();
             }
         }
-            else if(mode == 2){
+        else if(mode == 2){
             QString filepath = QFileDialog::getOpenFileName(this,"请选择游戏存档","saves\\","(*single)");
             QString dirpath = QDir::currentPath();
             filepath = filepath.mid(dirpath.length()+1);
@@ -89,13 +89,14 @@ readFile::readFile(QWidget *parent, int mode) :
             fstream infile(filename,ios::in);
             if(infile){
                 this->hide();
-                SingleMode *singlemode = new SingleMode(this->father);
                 infile.get();//mode
+                int dead_time;
+                infile >> dead_time;
+                SingleMode *singlemode = new SingleMode(this->father,dead_time);
                 infile >> singlemode->level;
                 infile >> singlemode->board->score;
                 infile >> singlemode->board->maxScore;
                 infile >> singlemode->board->move_interval;
-                infile >> singlemode->board->food_interval;
                 infile >> singlemode->board->length;
                 for(int i = 0; i < 500; ++i)
                 {
@@ -104,6 +105,7 @@ readFile::readFile(QWidget *parent, int mode) :
                         infile >> singlemode->board->map[i][j];
                     }
                 }
+                infile >> singlemode->board->snake->total_len;
                 infile >> singlemode->board->snake->len;
                 for(int i = 0; i < singlemode->board->snake->len; ++i)
                 {
@@ -111,16 +113,6 @@ readFile::readFile(QWidget *parent, int mode) :
                 }
                 infile >> singlemode->board->snake->dx;
                 infile >> singlemode->board->snake->dy;
-                if(singlemode->board->snake2)
-                {
-                    infile >> singlemode->board->snake2->len;
-                    for(int i = 0; i < singlemode->board->snake2->len; ++i)
-                    {
-                        infile >> singlemode->board->snake2->s[i][0] >> singlemode->board->snake2->s[i][1];
-                    }
-                    infile >> singlemode->board->snake2->dx;
-                    infile >> singlemode->board->snake2->dy;
-                }
                 infile.close();
                 singlemode->show();
             }
@@ -144,7 +136,7 @@ readFile::readFile(QWidget *parent, int mode) :
                 int temp_mode;
                 infile>>temp_mode;
                 if(temp_mode==1)
-                   {
+                {
                     EndlessMode *endlessmode = new EndlessMode(this->father);
                     infile >> endlessmode->board->score;
                     infile >> endlessmode->board->maxScore;
@@ -180,12 +172,13 @@ readFile::readFile(QWidget *parent, int mode) :
                 }
                 else if(temp_mode==2)
                 {
-                    SingleMode *singlemode = new SingleMode(this->father);
+                    int dead_time;
+                    infile >> dead_time;
+                    SingleMode *singlemode = new SingleMode(this->father,dead_time);
                     infile >> singlemode->level;
                     infile >> singlemode->board->score;
                     infile >> singlemode->board->maxScore;
                     infile >> singlemode->board->move_interval;
-                    infile >> singlemode->board->food_interval;
                     infile >> singlemode->board->length;
                     for(int i = 0; i < 500; ++i)
                     {
@@ -194,6 +187,7 @@ readFile::readFile(QWidget *parent, int mode) :
                             infile >> singlemode->board->map[i][j];
                         }
                     }
+                    infile >> singlemode->board->snake->total_len;
                     infile >> singlemode->board->snake->len;
                     for(int i = 0; i < singlemode->board->snake->len; ++i)
                     {
@@ -201,16 +195,6 @@ readFile::readFile(QWidget *parent, int mode) :
                     }
                     infile >> singlemode->board->snake->dx;
                     infile >> singlemode->board->snake->dy;
-                    if(singlemode->board->snake2)
-                    {
-                        infile >> singlemode->board->snake2->len;
-                        for(int i = 0; i < singlemode->board->snake2->len; ++i)
-                        {
-                            infile >> singlemode->board->snake2->s[i][0] >> singlemode->board->snake2->s[i][1];
-                        }
-                        infile >> singlemode->board->snake2->dx;
-                        infile >> singlemode->board->snake2->dy;
-                    }
                     infile.close();
                     singlemode->show();
                 }

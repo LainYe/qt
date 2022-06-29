@@ -30,7 +30,12 @@ void Snake::eat()
     board->reset_interval();
     board->get_score();
 }
-
+void Snake::single_eat()
+{
+    single_forward();
+    update();
+    board->get_score();
+}
 int Snake::detect()
 {
     int tx = s[0][0] + dx;
@@ -62,6 +67,27 @@ void Snake::forward()
     update();
 }
 
+void Snake::single_forward()
+{
+    if(len==total_len)
+    {
+        forward();
+    }
+    else
+    {
+        ++len;
+        //蛇内部的数组更新
+        for(int i = len - 1; i > 0; --i)
+        {
+            s[i][0] = s[i - 1][0];
+            s[i][1] = s[i - 1][1];
+        }
+        s[0][0] += dx;
+        s[0][1] += dy;
+        //更新地图
+        update();
+    }
+}
 
 void Snake::turnUp()
 {

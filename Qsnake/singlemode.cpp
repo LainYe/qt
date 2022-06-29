@@ -15,9 +15,10 @@ using namespace std;
 # pragma execution_character_set("utf-8")
 
 
-SingleMode::SingleMode(QWidget *_father) :
+SingleMode::SingleMode(QWidget *_father,int Dead_Time) :
     QWidget(),
-    ui(new Ui::SingleMode)
+    ui(new Ui::SingleMode),
+    dead_time(Dead_Time)
 {
     ui->setupUi(this);
     father = _father;
@@ -26,7 +27,6 @@ SingleMode::SingleMode(QWidget *_father) :
     board = new Board(20,2);
     pause = 0;
     flag = 0;
-
     QString filename=":/SingleModeMaps/maps/level_0.single";
     QFile file(filename);
     file.open(QIODevice::ReadOnly);
@@ -38,7 +38,6 @@ SingleMode::SingleMode(QWidget *_father) :
     infile >> board->score>>space;
     infile >> board->maxScore>>space;
     infile >> board->move_interval>>space;
-    infile >> board->food_interval>>space;
     infile >> board->length>>space>>space;
     for(int i = 0; i < 500; ++i)
     {
@@ -48,6 +47,7 @@ SingleMode::SingleMode(QWidget *_father) :
         }
         infile >>space;
     }
+    infile >> board->snake->total_len>>space;
     infile >> board->snake->len>>space>>space;
     for(int i = 0; i < board->snake->len; ++i)
     {
@@ -66,10 +66,13 @@ SingleMode::SingleMode(QWidget *_father) :
 
     //初始化定时器
     timer = new QTimer(this);
+    stable_timer =new QTimer(this);
+    stable_timer->setSingleShot(true);
     //为定时器设置连接函数
     connect(timer, &QTimer::timeout, this, &SingleMode::timerEvent);
+    connect(stable_timer,&QTimer::timeout,this,&SingleMode::stable_timerEvent);
     timer->start();
-
+    stable_timer->start(dead_time);
     resize(1000,800);
 }
 
@@ -111,8 +114,8 @@ void SingleMode::paintEvent(QPaintEvent *ev)
                 painter.setBrush(Qt::red);
                 painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
             }
-         }
-      }
+        }
+    }
     //游戏信息
     //字体
     QFont font;
@@ -120,19 +123,29 @@ void SingleMode::paintEvent(QPaintEvent *ev)
     painter.setFont(font);
     painter.setPen(Qt::blue);
 
-    painter.drawText((board->length+3)*20+60, 3*20, "速度");
+    painter.drawText((board->length+3)*20+60, 2*20, "关卡");
+    painter.drawText((board->length+3)*20+60, 5*20, QString().number(level));
+
+
+    painter.drawText((board->length+3)*20+60, 7*20, "速度");
     double speed = (double)1/(board->move_interval/1000.0);
-    painter.drawText((board->length+3)*20+60, 6*20, QString("%1 /s").arg(speed,0,'g',3));
+    painter.drawText((board->length+3)*20+60, 10*20, QString("%1 /s").arg(speed,0,'g',3));
 
 
-    painter.drawText((board->length+3)*20+60, 10*20, "最高分");
-    painter.drawText((board->length+3)*20+60, 13*20, QString().number(board->maxScore));
+    painter.drawText((board->length+3)*20+60, 12*20, "最高分");
+    painter.drawText((board->length+3)*20+60, 15*20, QString().number(board->maxScore));
 
-    painter.drawText((board->length+3)*20+60, 16*20, "当前");
-    painter.drawText((board->length+3)*20+60, 18*20, QString().number(board->score));
+    painter.drawText((board->length+3)*20+60, 17*20, "当前");
+    painter.drawText((board->length+3)*20+60, 20*20, QString().number(board->score));
 
-    painter.drawText((board->length+3)*20+60, 21*20, "关卡");
-    painter.drawText((board->length+3)*20+60, 23*20, QString().number(level));
+    painter.drawText((board->length+3)*20+60, 22*20, "洞外长度");
+    painter.drawText((board->length+3)*20+60, 25*20, QString().number(board->snake->total_len-board->snake->len));
+
+    painter.drawText((board->length+3)*20+60, 27*20, "总剩余时间/s");
+    painter.drawText((board->length+3)*20+60, 30*20, QString().number(stable_timer->remainingTime()/1000));
+    dead_time=stable_timer->remainingTime();
+
+    //more
 }
 
 void SingleMode::keyPressEvent(QKeyEvent *event)
@@ -188,7 +201,26 @@ void SingleMode::keyPressEvent(QKeyEvent *event)
     //更新界面
     this->update();
 }
-
+void SingleMode::stable_timerEvent()
+{
+    if(!stable_timer->isActive())
+    {
+        timer->stop();
+        if (QMessageBox::Yes ==
+                QMessageBox::question(this, tr("Game Over"), tr("你超时了，开始新游戏吗?"),
+                                      QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
+        {
+            SingleMode *singlemode = new SingleMode(father);
+            this->hide();
+            singlemode->show();
+        }
+        else
+        {
+            this->hide();
+            father->show();
+        }
+    }
+}
 void SingleMode:: timerEvent()
 {
     flag = 0;
@@ -198,8 +230,8 @@ void SingleMode:: timerEvent()
     {
         timer->stop();
         if (QMessageBox::Yes ==
-            QMessageBox::question(this, tr("Game Over"), tr("蛇撞墙了，开始新游戏吗?"),
-                QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
+                QMessageBox::question(this, tr("Game Over"), tr("蛇撞墙了，开始新游戏吗?"),
+                                      QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
         {
             SingleMode *singlemode = new SingleMode(father);
             this->hide();
@@ -216,8 +248,8 @@ void SingleMode:: timerEvent()
     {
         timer->stop();
         if (QMessageBox::Yes ==
-            QMessageBox::question(this, tr("Game Over"), tr("蛇咬到自己了，开始新游戏吗?"),
-                QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
+                QMessageBox::question(this, tr("Game Over"), tr("蛇咬到自己了，开始新游戏吗?"),
+                                      QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
         {
             SingleMode *singlemode = new SingleMode(father);
             this->hide();
@@ -233,7 +265,7 @@ void SingleMode:: timerEvent()
     else if(next == 1)
     {
 
-        board->snake->forward();
+        board->snake->single_forward();
         repaint();
         timer->setInterval(board->move_interval);
         timer->start();
@@ -241,7 +273,7 @@ void SingleMode:: timerEvent()
     //吃食物
     else if(next == 2)
     {
-        board->snake->eat();
+        board->snake->single_eat();
         repaint();
         timer->setInterval(board->move_interval);
         timer->start();
@@ -249,12 +281,11 @@ void SingleMode:: timerEvent()
     //下一关
     else if(next == -2)
     {
-        board->snake->forward();
+        board->snake->single_forward();
+        timer->stop();
         if(next_level(level))
         {
             repaint();
-            timer->setInterval(board->move_interval);
-            timer->start();
         }
         else
         {
@@ -271,17 +302,17 @@ int SingleMode::saveFile(std::string fileName)
     if(infile)
     {
         if (QMessageBox::Yes ==
-            QMessageBox::question(this, tr("存档"), tr("存档已经存在，确认要覆盖吗?"),
-                QMessageBox::Yes | QMessageBox::No, QMessageBox::No))
+                QMessageBox::question(this, tr("存档"), tr("存档已经存在，确认要覆盖吗?"),
+                                      QMessageBox::Yes | QMessageBox::No, QMessageBox::No))
         {
             std::ofstream outfile;
             outfile.open(fileName);
             outfile << mode << " ";
+            outfile << dead_time << " ";
             outfile << level <<" ";
             outfile << board->score << " ";
             outfile << board->maxScore << " ";
             outfile << board->move_interval << " ";
-            outfile << board->food_interval << " ";
             outfile << board->length << " \n";
             for(int i = 0; i < 500; ++i)
             {
@@ -291,6 +322,7 @@ int SingleMode::saveFile(std::string fileName)
                 }
                 outfile << '\n';
             }
+            outfile<<board->snake->total_len<<" ";
             outfile << board->snake->len << " \n";
             for(int i = 0; i < board->snake->len; ++i)
             {
@@ -299,17 +331,6 @@ int SingleMode::saveFile(std::string fileName)
             outfile << '\n';
             outfile << board->snake->dx << " ";
             outfile << board->snake->dy << " \n";
-            if(board->snake2)
-            {
-                outfile << board->snake2->len << " \n";
-                for(int i = 0; i < board->snake2->len; ++i)
-                {
-                    outfile << board->snake2->s[i][0] << " " << board->snake2->s[i][1] << " ";
-                }
-                outfile << '\n';
-                outfile << board->snake2->dx << " ";
-                outfile << board->snake2->dy << " ";
-             }
             infile.close();
             outfile.close();
             return 0;
@@ -325,11 +346,11 @@ int SingleMode::saveFile(std::string fileName)
         std::ofstream outfile;
         outfile.open(fileName);
         outfile << mode << " ";
+        outfile << dead_time << " ";
         outfile << level << " ";
         outfile << board->score << " ";
         outfile << board->maxScore << " ";
         outfile << board->move_interval << " ";
-        outfile << board->food_interval << " ";
         outfile << board->length << " \n";
         for(int i = 0; i < 500; ++i)
         {
@@ -339,6 +360,7 @@ int SingleMode::saveFile(std::string fileName)
             }
             outfile<<'\n';
         }
+        outfile<<board->snake->total_len<<" ";
         outfile << board->snake->len << " \n";
         for(int i = 0; i < board->snake->len; ++i)
         {
@@ -347,17 +369,6 @@ int SingleMode::saveFile(std::string fileName)
         outfile << '\n';
         outfile << board->snake->dx << " ";
         outfile << board->snake->dy << " \n";
-        if(board->snake2)
-        {
-            outfile << board->snake2->len << " \n";
-            for(int i = 0; i < board->snake2->len; ++i)
-            {
-                outfile << board->snake2->s[i][0] << " " << board->snake2->s[i][1] << " ";
-            }
-            outfile << '\n';
-            outfile << board->snake2->dx << " ";
-            outfile << board->snake2->dy << " ";
-         }
         outfile.close();
     }
     return 0;
@@ -370,34 +381,52 @@ bool SingleMode::next_level(int previous_level)
     int temp_mode;
     if(file.open(QIODevice::ReadOnly))
     {
-    QTextStream infile(&file);
-    char space;
-    infile >> temp_mode>>space;//mode
-    infile >> level>>space;
-    infile >> board->score>>space;
-    infile >> board->maxScore>>space;
-    infile >> board->move_interval>>space;
-    infile >> board->food_interval>>space;
-    infile >> board->length>>space>>space;
-    for(int i = 0; i < 500; ++i)
-    {
-        for(int j = 0; j < 500; ++j)
+        QTextStream infile(&file);
+        char space;
+        infile >> temp_mode>>space;//mode
+        infile >> level>>space;
+        infile >> board->score>>space;
+        infile >> board->maxScore>>space;
+        infile >> board->move_interval>>space;
+        infile >> board->length>>space>>space;
+        for(int i = 0; i < 500; ++i)
         {
-            infile >> board->map[i][j]>>space;
+            for(int j = 0; j < 500; ++j)
+            {
+                infile >> board->map[i][j]>>space;
+            }
+            infile >> space;
         }
-        infile >> space;
-    }
-    infile >> board->snake->len>>space>>space;
-    for(int i = 0; i < board->snake->len; ++i)
-    {
-        infile >> board->snake->s[i][0] >>space>> board->snake->s[i][1]>>space;
-    }
-    infile >>space>> board->snake->dx>>space;
-    infile >> board->snake->dy>>space;
-    file.close();
-    string temp=string("你即将进入第"+to_string(level)+"关");
-    QMessageBox::information(this,"下一关",temp.c_str());
-    return true;
+        infile >> board->snake->total_len>>space;
+        infile >> board->snake->len>>space>>space;
+        for(int i = 0; i < board->snake->len; ++i)
+        {
+            infile >> board->snake->s[i][0] >>space>> board->snake->s[i][1]>>space;
+        }
+        infile >>space>> board->snake->dx>>space;
+        infile >> board->snake->dy>>space;
+        file.close();
+        timer->setInterval(board->move_interval);
+        timer->stop();
+        QString temp=QString("你即将进入第")+char(level+48)+QString("关");
+
+        QMessageBox box(QMessageBox::Question,"进入下一关",temp,
+                        QMessageBox::Yes|QMessageBox::No,this);
+        box.setButtonText(QMessageBox::Yes,"进入游戏！");
+        box.setButtonText(QMessageBox::No,"暂停一下");
+        int tmp = box.exec();
+        if(tmp == QMessageBox::No){
+            timer->stop();
+            pause = 1;
+            Pause *_pause = new Pause(this, this->mode);
+            _pause->show();
+            return true;
+        }
+        else
+        {
+            timer->start();
+            return true;
+        }
     }
     else
     {
