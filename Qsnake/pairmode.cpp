@@ -30,8 +30,7 @@ PairMode::PairMode(QWidget *_father) :
     //用于生成食物的定时器
     timer2 = new QTimer(this);
     timer2->setInterval(board->food_interval);
-    timer3=new QTimer(this);
-    timer3->setInterval(1000);
+
     //为定时器设置连接函数
     connect(timer, &QTimer::timeout, this, &PairMode::timerEvent);
     connect(timer2, &QTimer::timeout, [=](){
@@ -40,21 +39,14 @@ PairMode::PairMode(QWidget *_father) :
         timer2->setInterval(board->food_interval);
         timer2->start();
     });
-    connect(timer3, &QTimer::timeout, this, &PairMode::countdown);
     timer->start();
     timer2->start();
-    timer3->start();
     resize(1000,800);
 }
 
 PairMode::~PairMode()
 {
     delete ui;
-}
-void PairMode::countdown(){
-    value--;
-    timer3->setInterval(1000);
-    timer3->start();
 }
 void PairMode::paintEvent(QPaintEvent *ev)
 {
@@ -110,21 +102,12 @@ void PairMode::paintEvent(QPaintEvent *ev)
     double speed = (double)1/(board->move_interval/1000.0);
     painter.drawText((board->length+3)*Rectsize+60, 6*20, QString("%1 /s").arg(speed,0,'g',3));
 
-    if (value<=60)
-    {painter.setPen(Qt::green);}
-    if (value<=30)
-        {painter.setPen(Qt::yellow);}
-    if (value<=10)
-        {painter.setPen(Qt::red);}
-    painter.drawText((board->length+3)*Rectsize+60, 10*20, "倒计时");
-    painter.drawText((board->length+3)*Rectsize+60, 13*20, QString("%d /s").number(value));
 
-    painter.setPen(Qt::blue);
-    painter.drawText((board->length+3)*Rectsize+60, 16*20, "玩家1长度");
-    painter.drawText((board->length+3)*Rectsize+60, 19*20, QString().number(board->snake->len));
+    painter.drawText((board->length+3)*Rectsize+60, 10*20, "玩家1长度");
+    painter.drawText((board->length+3)*Rectsize+60, 13*20, QString().number(board->snake->len));
 
-    painter.drawText((board->length+3)*Rectsize+60, 21*20, "玩家2长度");
-    painter.drawText((board->length+3)*Rectsize+60, 24*20, QString().number(board->snake2->len));
+    painter.drawText((board->length+3)*Rectsize+60, 16*20, "玩家2长度");
+    painter.drawText((board->length+3)*Rectsize+60, 18*20, QString().number(board->snake2->len));
 }
 
 void PairMode::keyPressEvent(QKeyEvent *event)
@@ -220,7 +203,6 @@ void PairMode::keyPressEvent(QKeyEvent *event)
 void PairMode::Player1win(){
     timer->stop();
     timer2->stop();
-    timer3->stop();
     if (QMessageBox::Yes ==
         QMessageBox::question(this, tr("Game Over"), tr("玩家1获胜！开始新游戏吗？"),
             QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
@@ -230,9 +212,6 @@ void PairMode::Player1win(){
         timer->start();
         timer2->setInterval(board->food_interval);
         timer2->start();
-        timer3->setInterval(1000);
-        timer3->start();
-        value=120;
     }
     else
     {
@@ -243,7 +222,6 @@ void PairMode::Player1win(){
 void PairMode::Player2win(){
     timer->stop();
     timer2->stop();
-    timer3->stop();
     if (QMessageBox::Yes ==
         QMessageBox::question(this, tr("Game Over"), tr("玩家2获胜！开始新游戏吗？"),
             QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
@@ -253,9 +231,6 @@ void PairMode::Player2win(){
         timer->start();
         timer2->setInterval(board->food_interval);
         timer2->start();
-        timer3->setInterval(1000);
-        timer3->start();
-        value=120;
     }
     else
     {
@@ -266,7 +241,6 @@ void PairMode::Player2win(){
 void PairMode::EndDraw(){
     timer->stop();
     timer2->stop();
-    timer3->stop();
     if (QMessageBox::Yes ==
         QMessageBox::question(this, tr("Game Over"), tr("平局！开始新游戏吗?"),
             QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
@@ -276,9 +250,6 @@ void PairMode::EndDraw(){
         timer->start();
         timer2->setInterval(board->food_interval);
         timer2->start();
-        timer3->setInterval(1000);
-        timer3->start();
-         value=120;
     }
     else
     {
@@ -289,17 +260,6 @@ void PairMode::EndDraw(){
 void PairMode:: timerEvent()
 {
     bool go_on=1;//表示是否继续
-    if (value<=0){
-        int delta=board->snake->len-board->snake2->len;
-        if (delta>0)
-            Player1win();
-        if (delta==0)
-            EndDraw();
-        if(delta<0)
-            Player2win();
-        go_on=0;
-    }
-
     flag = 0;
     int action=0;
     int next = board->snake->detect();

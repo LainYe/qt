@@ -54,7 +54,8 @@ SingleMode::SingleMode(QWidget *_father,int Dead_Time) :
     infile >>space>> board->snake->dx>>space;
     infile >> board->snake->dy>>space;
     file.close();
-
+    hole[0]=board->snake->s[0][0];
+    hole[1]=board->snake->s[0][1];
 
 
 
@@ -294,6 +295,11 @@ void SingleMode:: timerEvent()
             father->show();
         }
     }
+    if(board->map[hole[0]][hole[1]])
+    {
+        board->map[hole[0]][hole[1]]=-1;
+        repaint();
+    }
 }
 
 int SingleMode::saveFile(std::string fileName)
@@ -404,6 +410,8 @@ bool SingleMode::next_level(int previous_level)
         infile >>space>> board->snake->dx>>space;
         infile >> board->snake->dy>>space;
         file.close();
+        hole[0]=board->snake->s[0][0];
+        hole[1]=board->snake->s[0][1];
         timer->setInterval(board->move_interval);
         timer->stop();
         QString temp=QString("你即将进入第")+char(level+48)+QString("关");

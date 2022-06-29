@@ -25,13 +25,11 @@ public:
     const int mode = 3;
     QTimer *timer;//计时器
     QTimer *timer2;//用于生成食物
-    QTimer *timer3;//用于游戏倒计时
     Board *board;//地图
     QWidget *father;
-    int value=120;
+
     void paintEvent(QPaintEvent *);//重写绘图函数
     void keyPressEvent(QKeyEvent *);//重写键盘事件函数
-    void countdown();//倒计时
     int saveFile(std::string);//存档函数,因为重名放弃存档返回1
     void EndDraw();//平局
     void Player1win();

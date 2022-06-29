@@ -29,7 +29,7 @@ public:
     Board *board;//地图
     QWidget *father;
     int initial_score = 0;//进入地图时的分数
-
+    int hole[2]={};//洞口
     void paintEvent(QPaintEvent *);//重写绘图函数
     void keyPressEvent(QKeyEvent *);//重写键盘事件函数
     int saveFile(std::string);//存档函数,因为重名放弃存档返回1
