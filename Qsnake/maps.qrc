@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/SingleModeMaps">
-        <file>maps/raw_map.single</file>
+        <file>maps/level_0.single</file>
+        <file>maps/level_1.single</file>
+        <file>maps/level_2.single</file>
     </qresource>
 </RCC>

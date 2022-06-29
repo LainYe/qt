@@ -40,6 +40,7 @@ Board::Board(int _length, int _mode)
     }
 
     //初始化地图
+    memset(map,1,sizeof (map));
     for(int i = 0; i<= length + 1; ++i)
     {
         map[0][i] = map[i][0] = map[length + 1][i] = map[i][length + 1] = -1;

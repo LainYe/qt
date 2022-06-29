@@ -90,7 +90,8 @@ readFile::readFile(QWidget *parent, int mode) :
             if(infile){
                 this->hide();
                 SingleMode *singlemode = new SingleMode(this->father);
-                infile.get();
+                infile.get();//mode
+                infile >> singlemode->level;
                 infile >> singlemode->board->score;
                 infile >> singlemode->board->maxScore;
                 infile >> singlemode->board->move_interval;
@@ -180,6 +181,7 @@ readFile::readFile(QWidget *parent, int mode) :
                 else if(temp_mode==2)
                 {
                     SingleMode *singlemode = new SingleMode(this->father);
+                    infile >> singlemode->level;
                     infile >> singlemode->board->score;
                     infile >> singlemode->board->maxScore;
                     infile >> singlemode->board->move_interval;

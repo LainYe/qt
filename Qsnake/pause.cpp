@@ -66,7 +66,6 @@ Pause::Pause(QWidget *parent, int mode) :
         connect(ui->back, &QPushButton::clicked,[=](){
             father2->pause = 0;
             father2->timer->start();
-            father2->timer2->start();
             close();
             delete this;
         });
@@ -84,7 +83,6 @@ Pause::Pause(QWidget *parent, int mode) :
             }
             father2->pause = 0;
             father2->timer->start();
-            father2->timer2->start();
             delete this;
         });
         connect(ui->exit, &QPushButton::clicked,[=](){

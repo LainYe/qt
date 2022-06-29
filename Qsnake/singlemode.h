@@ -24,14 +24,13 @@ public:
     int level = 0;//关卡
     const int mode = 2;
     QTimer *timer;//计时器
-    QTimer *timer2;//用于生成食物
     Board *board;//地图
     QWidget *father;
 
     void paintEvent(QPaintEvent *);//重写绘图函数
     void keyPressEvent(QKeyEvent *);//重写键盘事件函数
     int saveFile(std::string);//存档函数,因为重名放弃存档返回1
-
+    bool next_level(int);
 public slots:
     void timerEvent();//计时器到时的槽函数
 
