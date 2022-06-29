@@ -38,7 +38,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="player2mode">
+     <widget class="QPushButton" name="pairmode">
       <property name="text">
        <string>双人模式</string>
       </property>
