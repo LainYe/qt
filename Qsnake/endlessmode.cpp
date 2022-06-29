@@ -54,15 +54,16 @@ void EndlessMode::paintEvent(QPaintEvent *ev)
     //设置地图尺寸
     int Rectsize = 20;
     int l = board->snake->len;
-    if(l >= 10 && l < 40){
-        board->reset_size(20,40);
-        Rectsize = 10;
+    int new_size;
+
+    if(l >= 10 && l < 60){
+        new_size = 20 + l / 5;
+        board->reset_size(board->length, new_size);
     }
-    else if(l > 40){
-        board->reset_size(40,80);
-        Rectsize = 10;
-        resize(1500,1200);
+    else if(l > 60){
+        Rectsize = max(10, 20 - (l - 60)/5);
     }
+
 
     for(int i = 0; i <= board->length + 1; ++i)
         {
@@ -256,7 +257,7 @@ int EndlessMode::saveFile(std::string fileName)
                 }
                 outfile << '\n';
             }
-            outfile << board->snake->len << " \n";
+            outfile << board->snake->len << " ";
             for(int i = 0; i < board->snake->len; ++i)
             {
                 outfile << board->snake->s[i][0] << " " << board->snake->s[i][1] << " ";
@@ -266,7 +267,7 @@ int EndlessMode::saveFile(std::string fileName)
             outfile << board->snake->dy << " ";
             if(board->snake2)
             {
-                outfile << board->snake2->len << " \n";
+                outfile << board->snake2->len << " ";
                 for(int i = 0; i < board->snake2->len; ++i)
                 {
                     outfile << board->snake2->s[i][0] << " " << board->snake2->s[i][1] << " ";
@@ -303,7 +304,7 @@ int EndlessMode::saveFile(std::string fileName)
             }
             outfile << '\n';
         }
-        outfile << board->snake->len << " \n";
+        outfile << board->snake->len << " ";
         for(int i = 0; i < board->snake->len; ++i)
         {
             outfile << board->snake->s[i][0] << " " << board->snake->s[i][1] << " ";
@@ -313,7 +314,7 @@ int EndlessMode::saveFile(std::string fileName)
         outfile << board->snake->dy << " ";
         if(board->snake2)
         {
-            outfile << board->snake2->len << " \n";
+            outfile << board->snake2->len << " ";
             for(int i = 0; i < board->snake2->len; ++i)
             {
                 outfile << board->snake2->s[i][0] << " " << board->snake2->s[i][1] << " ";
