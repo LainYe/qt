@@ -14,6 +14,7 @@ SOURCES += \
     endlessmode.cpp \
     main.cpp \
     mainwindow.cpp \
+    pairmode.cpp \
     pause.cpp \
     readfile.cpp \
     rules.cpp \
@@ -26,6 +27,7 @@ HEADERS += \
     choosenewgame.h \
     endlessmode.h \
     mainwindow.h \
+    pairmode.h \
     pause.h \
     readfile.h \
     rules.h \
@@ -37,6 +39,7 @@ FORMS += \
     choosenewgame.ui \
     endlessmode.ui \
     mainwindow.ui \
+    pairmode.ui \
     pause.ui \
     readfile.ui \
     rules.ui \

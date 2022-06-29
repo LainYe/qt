@@ -17,7 +17,24 @@ Board::Board(int _length, int _mode)
     move_interval = 300;
     food_interval = 5000;
     length = _length;
+    if (mode==1||mode==2)
     snake = new Snake(this);
+    if (mode==3)
+        {
+            snake=new Snake(this);
+            snake2=new Snake();
+            snake2->dx=0;
+            snake2->dy=-1;
+            snake2->board = this;
+             snake2->len = 2;
+             snake->s[0][0] =  snake->s[1][0] =  snake->board->length/2-2;
+             snake->s[0][1] =  snake->board->length/2-2;
+             snake->s[1][1] =  snake->s[0][1] - 1;
+             snake2->s[0][0] =  snake2->s[1][0] =  snake2->board->length/2+2;
+             snake2->s[0][1] =  snake2->board->length/2+2;
+             snake2->s[1][1] =  snake2->s[0][1] + 1;
+
+        }
     //读取最大值
     QString filename;
     if(mode == 1){
@@ -62,6 +79,10 @@ Board::Board(int _length, int _mode)
         }
     }
     //初始一个食物
+    if(mode==3){
+        snake->update(3);
+        snake2->update(4);
+    }
     int food_x = (rand()%length) + 1;
     int food_y = (rand()%length) + 1;
     map[food_x][food_y] = 2;
@@ -71,7 +92,7 @@ void Board::makeFood()
 {
     srand( (unsigned)time( NULL ) );
     int food_x = 0, food_y = 0;
-    while(map[food_x][food_y] != 1)
+    while(map[food_x][food_y] != 1&&map[food_x][food_y] != 3&&map[food_x][food_y] != 4)
     {
         food_x = rand()%length + 1;
         food_y = rand()%length + 1;

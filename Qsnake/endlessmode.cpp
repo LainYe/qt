@@ -1,6 +1,7 @@
 ﻿#include "endlessmode.h"
 #include "ui_endlessmode.h"
 #include "pause.h"
+#include "ui_pause.h"
 #include <QPainter>
 #include <QTimer>
 #include <iostream>
@@ -54,6 +55,7 @@ void EndlessMode::paintEvent(QPaintEvent *ev)
     //设置地图尺寸
     int Rectsize = 20;
     int l = board->snake->len;
+
     int new_size;
 
     if(l >= 10 && l < 60){
@@ -61,36 +63,35 @@ void EndlessMode::paintEvent(QPaintEvent *ev)
         board->reset_size(board->length, new_size);
     }
     else if(l > 60){
-        Rectsize = max(10, 20 - (l - 60)/5);
+            Rectsize = max(10, 20 - (l - 60)/5);
     }
 
-
     for(int i = 0; i <= board->length + 1; ++i)
+    {
+        for(int j = 0; j <= board->length+ 1; ++j)
         {
-            for(int j = 0; j <= board->length+ 1; ++j)
+            if(board->map[i][j] == 2)//食物
             {
-                if(board->map[i][j] == 2)//食物
-                {
-                    painter.setBrush(Qt::yellow);
-                    painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
-                }
-                else if(board->map[i][j] == 1){//空地
-                    continue;
-                }
-                else if(board->map[i][j] == 0 || board->map[i][j] == 3 || board->map[i][j] == 4){//蛇
-                    painter.setBrush(Qt::white);
-                    if(i == board->snake->s[0][0] && j == board->snake->s[0][1])
-                        painter.setBrush(Qt::darkGreen);
-                    if(board->snake2 && i == board->snake2->s[0][0] && j == board->snake2->s[0][1])
-                        painter.setBrush(Qt::darkGreen);
-                    painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
-                }
-                else if(board->map[i][j] == -1){
-                    painter.setBrush(Qt::lightGray);
-                    painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
-                }
+                painter.setBrush(Qt::yellow);
+                painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
+            }
+            else if(board->map[i][j] == 1){//空地
+                continue;
+            }
+            else if(board->map[i][j] == 0 || board->map[i][j] == 3 || board->map[i][j] == 4){//蛇
+                painter.setBrush(Qt::white);
+                if(i == board->snake->s[0][0] && j == board->snake->s[0][1])
+                    painter.setBrush(Qt::darkGreen);
+                if(board->snake2 && i == board->snake2->s[0][0] && j == board->snake2->s[0][1])
+                    painter.setBrush(Qt::darkGreen);
+                painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
+            }
+            else if(board->map[i][j] == -1){
+                painter.setBrush(Qt::lightGray);
+                painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
             }
         }
+    }
 
 
     //字体
@@ -176,8 +177,8 @@ void EndlessMode:: timerEvent()
         timer->stop();
         timer2->stop();
         if (QMessageBox::Yes ==
-            QMessageBox::question(this, tr("Game Over"), tr("蛇撞墙了，开始新游戏吗?"),
-                QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
+                QMessageBox::question(this, tr("Game Over"), tr("蛇撞墙了，开始新游戏吗?"),
+                                      QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
         {
             board = new Board(20,1);
             timer->setInterval(board->move_interval);
@@ -197,8 +198,8 @@ void EndlessMode:: timerEvent()
         timer->stop();
         timer2->stop();
         if (QMessageBox::Yes ==
-            QMessageBox::question(this, tr("Game Over"), tr("蛇咬到自己了，开始新游戏吗?"),
-                QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
+                QMessageBox::question(this, tr("Game Over"), tr("蛇咬到自己了，开始新游戏吗?"),
+                                      QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
         {
             board = new Board(20,1);
             timer->setInterval(board->move_interval);
@@ -238,8 +239,8 @@ int EndlessMode::saveFile(std::string fileName)
     if(infile)
     {
         if (QMessageBox::Yes ==
-            QMessageBox::question(this, tr("存档"), tr("存档已经存在，确认要覆盖吗?"),
-                QMessageBox::Yes | QMessageBox::No, QMessageBox::No))
+                QMessageBox::question(this, tr("存档"), tr("存档已经存在，确认要覆盖吗?"),
+                                      QMessageBox::Yes | QMessageBox::No, QMessageBox::No))
         {
             std::ofstream outfile;
             outfile.open(fileName);
@@ -257,7 +258,7 @@ int EndlessMode::saveFile(std::string fileName)
                 }
                 outfile << '\n';
             }
-            outfile << board->snake->len << " ";
+            outfile << board->snake->len << " \n";
             for(int i = 0; i < board->snake->len; ++i)
             {
                 outfile << board->snake->s[i][0] << " " << board->snake->s[i][1] << " ";
@@ -267,7 +268,7 @@ int EndlessMode::saveFile(std::string fileName)
             outfile << board->snake->dy << " ";
             if(board->snake2)
             {
-                outfile << board->snake2->len << " ";
+                outfile << board->snake2->len << " \n";
                 for(int i = 0; i < board->snake2->len; ++i)
                 {
                     outfile << board->snake2->s[i][0] << " " << board->snake2->s[i][1] << " ";
@@ -275,7 +276,7 @@ int EndlessMode::saveFile(std::string fileName)
                 outfile << '\n';
                 outfile << board->snake2->dx << " ";
                 outfile << board->snake2->dy << " ";
-             }
+            }
             infile.close();
             outfile.close();
             return 0;
@@ -304,7 +305,7 @@ int EndlessMode::saveFile(std::string fileName)
             }
             outfile << '\n';
         }
-        outfile << board->snake->len << " ";
+        outfile << board->snake->len << " \n";
         for(int i = 0; i < board->snake->len; ++i)
         {
             outfile << board->snake->s[i][0] << " " << board->snake->s[i][1] << " ";
@@ -314,7 +315,7 @@ int EndlessMode::saveFile(std::string fileName)
         outfile << board->snake->dy << " ";
         if(board->snake2)
         {
-            outfile << board->snake2->len << " ";
+            outfile << board->snake2->len << " \n";
             for(int i = 0; i < board->snake2->len; ++i)
             {
                 outfile << board->snake2->s[i][0] << " " << board->snake2->s[i][1] << " ";
@@ -322,7 +323,7 @@ int EndlessMode::saveFile(std::string fileName)
             outfile << '\n';
             outfile << board->snake2->dx << " ";
             outfile << board->snake2->dy << " ";
-         }
+        }
         outfile.close();
     }
     return 0;

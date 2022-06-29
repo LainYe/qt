@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "endlessmode.h"
 #include "singlemode.h"
+#include "pairmode.h"
 
 namespace Ui {
 class Pause;
@@ -18,7 +19,7 @@ public:
     ~Pause();
     EndlessMode *father1 = 0;
     SingleMode *father2 = 0;
-    //twoplayer *father3 = 0;
+    PairMode *father3 = 0;
 private:
     Ui::Pause *ui;
 };

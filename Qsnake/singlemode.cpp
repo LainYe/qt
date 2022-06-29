@@ -37,9 +37,9 @@ SingleMode::SingleMode(QWidget *_father,int Dead_Time) :
     infile >> level>>space;
     infile >> board->move_interval>>space;
     infile >> board->length>>space>>space;
-    for(int i = 0; i < 500; ++i)
+    for(int i = 0; i <= board->length+1; ++i)
     {
-        for(int j = 0; j < 500; ++j)
+        for(int j = 0; j <= board->length+1; ++j)
         {
             infile >> board->map[i][j]>>space;
         }
@@ -387,9 +387,9 @@ bool SingleMode::next_level(int previous_level)
         infile >> level>>space;
         infile >> board->move_interval>>space;
         infile >> board->length>>space>>space;
-        for(int i = 0; i < 500; ++i)
+        for(int i = 0; i <= board->length+1; ++i)
         {
-            for(int j = 0; j < 500; ++j)
+            for(int j = 0; j <= board->length+1; ++j)
             {
                 infile >> board->map[i][j]>>space;
             }

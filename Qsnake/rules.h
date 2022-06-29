@@ -16,7 +16,8 @@ public:
     explicit Rules(QWidget *parent = nullptr);
     ~Rules();
     MainWindow *father;
-
+    const QString strScrollCation = QString::fromLocal8Bit("“made by 太队了哥”");
+    void ScrollCation();
 private:
     Ui::Rules *ui;
 };

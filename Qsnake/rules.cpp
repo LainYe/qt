@@ -12,7 +12,12 @@ Rules::Rules(QWidget *parent) :
         father->show();
     });
 }
+void Rules::ScrollCation(){
+    static int pos=0;
+    if (pos>strScrollCation.length())
+        pos=0;
 
+}
 Rules::~Rules()
 {
     delete ui;

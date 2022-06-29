@@ -14,7 +14,8 @@ Snake::Snake(Board *_board)
     s[1][1] = s[0][1] - 1;
     update();
 }
-
+Snake::Snake(){
+}
 void Snake::eat()
 {
     int tx = s[0][0] + dx;
@@ -27,6 +28,20 @@ void Snake::eat()
     s[0][1] = ty;
     len++;
     board->map[tx][ty] = 0;
+    board->reset_interval();
+    board->get_score();
+}
+void Snake::eat(int k){
+    int tx = s[0][0] + dx;
+    int ty = s[0][1] + dy;
+    for(int i = len; i > 0; --i){
+        s[i][0] = s[i - 1][0];
+        s[i][1] = s[i - 1][1];
+    }
+    s[0][0] = tx;
+    s[0][1] = ty;
+    len++;
+    board->map[tx][ty] = k;
     board->reset_interval();
     board->get_score();
 }
@@ -50,7 +65,13 @@ void Snake::update(){
     }
     return;
 }
-
+void Snake::update(int k){
+    for(int i = 0; i < len; ++i)
+    {
+        board->map[ s[i][0] ][ s[i][1] ] = k;
+    }
+    return;
+}
 void Snake::forward()
 {
     //擦掉蛇尾
@@ -88,7 +109,20 @@ void Snake::single_forward()
         update();
     }
 }
-
+void Snake::forward(int k){
+    //擦掉蛇尾
+    board->map[ s[len - 1][0]][ s[len - 1][1] ] = 1;
+    //蛇内部的数组更新
+    for(int i = len - 1; i > 0; --i)
+    {
+        s[i][0] = s[i - 1][0];
+        s[i][1] = s[i - 1][1];
+    }
+    s[0][0] += dx;
+    s[0][1] += dy;
+    //更新地图
+    update(k);
+}
 void Snake::turnUp()
 {
     dx = -1;

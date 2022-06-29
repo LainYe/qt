@@ -3,5 +3,12 @@
         <file>maps/level_0.single</file>
         <file>maps/level_1.single</file>
         <file>maps/level_2.single</file>
+        <file>maps/level_3.single</file>
+        <file>maps/level_4.single</file>
+        <file>maps/level_5.single</file>
+        <file>maps/level_6.single</file>
+        <file>maps/level_7.single</file>
+        <file>maps/level_8.single</file>
+        <file>maps/level_9.single</file>
     </qresource>
 </RCC>

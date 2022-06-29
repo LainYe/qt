@@ -46,6 +46,22 @@ ChooseNewGame::ChooseNewGame(QWidget *parent) :
             show();
         }
     });
+    //新游戏“双人模式”
+        connect(ui->pairmode, &QPushButton::clicked,[=](){
+            hide();
+            QMessageBox box(QMessageBox::Question,"进入双人模式","双人模式：战胜对手！",
+                            QMessageBox::Yes|QMessageBox::No,this);
+            box.setButtonText(QMessageBox::Yes,"进入游戏！");
+            box.setButtonText(QMessageBox::No,"再想想...");
+            int tmp = box.exec();
+            if(tmp == QMessageBox::Yes){
+                PairMode *pairmode = new PairMode(this);
+                pairmode->show();
+            }
+            else{
+                show();
+            }
+        });
 
 }
 

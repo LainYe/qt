@@ -5,6 +5,7 @@
 #include "mainwindow.h"
 #include "endlessmode.h"
 #include "singlemode.h"
+#include "pairmode.h"
 
 namespace Ui {
 class ChooseNewGame;
