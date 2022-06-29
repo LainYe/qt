@@ -35,8 +35,6 @@ SingleMode::SingleMode(QWidget *_father,int Dead_Time) :
     int temp_mode;
     infile >> temp_mode>>space;//mode
     infile >> level>>space;
-    infile >> board->score>>space;
-    infile >> board->maxScore>>space;
     infile >> board->move_interval>>space;
     infile >> board->length>>space>>space;
     for(int i = 0; i < 500; ++i)
@@ -230,12 +228,12 @@ void SingleMode:: timerEvent()
     {
         timer->stop();
         if (QMessageBox::Yes ==
-                QMessageBox::question(this, tr("Game Over"), tr("蛇撞墙了，开始新游戏吗?"),
+                QMessageBox::question(this, tr("Game Over"), tr("蛇撞墙了，重新开始本关吗?"),
                                       QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
         {
-            SingleMode *singlemode = new SingleMode(father);
-            this->hide();
-            singlemode->show();
+            timer->stop();
+            next_level(level-1);
+            board->score=initial_score;
         }
         else
         {
@@ -248,12 +246,13 @@ void SingleMode:: timerEvent()
     {
         timer->stop();
         if (QMessageBox::Yes ==
-                QMessageBox::question(this, tr("Game Over"), tr("蛇咬到自己了，开始新游戏吗?"),
+                QMessageBox::question(this, tr("Game Over"), tr("蛇咬到自己了，重新开始本关吗?"),
                                       QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
         {
-            SingleMode *singlemode = new SingleMode(father);
-            this->hide();
-            singlemode->show();
+            timer->stop();
+            next_level(level-1);
+            board->score=initial_score;
+
         }
         else
         {
@@ -281,6 +280,7 @@ void SingleMode:: timerEvent()
     //下一关
     else if(next == -2)
     {
+        initial_score=board->score;
         board->snake->single_forward();
         timer->stop();
         if(next_level(level))
@@ -385,8 +385,6 @@ bool SingleMode::next_level(int previous_level)
         char space;
         infile >> temp_mode>>space;//mode
         infile >> level>>space;
-        infile >> board->score>>space;
-        infile >> board->maxScore>>space;
         infile >> board->move_interval>>space;
         infile >> board->length>>space>>space;
         for(int i = 0; i < 500; ++i)
@@ -431,6 +429,7 @@ bool SingleMode::next_level(int previous_level)
     else
     {
         QMessageBox::information(this,"恭喜","你已通关");
+        stable_timer->stop();
         return false;
     }
 }

@@ -28,6 +28,7 @@ public:
     int dead_time;//时间界限
     Board *board;//地图
     QWidget *father;
+    int initial_score = 0;//进入地图时的分数
 
     void paintEvent(QPaintEvent *);//重写绘图函数
     void keyPressEvent(QKeyEvent *);//重写键盘事件函数

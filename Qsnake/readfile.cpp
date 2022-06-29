@@ -44,7 +44,12 @@ readFile::readFile(QWidget *parent, int mode) :
                 EndlessMode *endlessmode = new EndlessMode(this->father);
                 infile.get();
                 infile >> endlessmode->board->score;
-                infile >> endlessmode->board->maxScore;
+                int maxscore;
+                infile >> maxscore;
+                if(endlessmode->board->maxScore<maxscore)
+                {
+                    endlessmode->board->maxScore=maxscore;
+                }
                 infile >> endlessmode->board->move_interval;
                 infile >> endlessmode->board->food_interval;
                 infile >> endlessmode->board->length;
@@ -95,7 +100,12 @@ readFile::readFile(QWidget *parent, int mode) :
                 SingleMode *singlemode = new SingleMode(this->father,dead_time);
                 infile >> singlemode->level;
                 infile >> singlemode->board->score;
-                infile >> singlemode->board->maxScore;
+                int maxscore;
+                infile >> maxscore;
+                if(singlemode->board->maxScore<maxscore)
+                {
+                    singlemode->board->maxScore=maxscore;
+                }
                 infile >> singlemode->board->move_interval;
                 infile >> singlemode->board->length;
                 for(int i = 0; i < 500; ++i)
@@ -139,7 +149,12 @@ readFile::readFile(QWidget *parent, int mode) :
                 {
                     EndlessMode *endlessmode = new EndlessMode(this->father);
                     infile >> endlessmode->board->score;
-                    infile >> endlessmode->board->maxScore;
+                    int maxscore;
+                    infile >> maxscore;
+                    if(endlessmode->board->maxScore<maxscore)
+                    {
+                        endlessmode->board->maxScore=maxscore;
+                    }
                     infile >> endlessmode->board->move_interval;
                     infile >> endlessmode->board->food_interval;
                     infile >> endlessmode->board->length;
@@ -157,16 +172,6 @@ readFile::readFile(QWidget *parent, int mode) :
                     }
                     infile >> endlessmode->board->snake->dx;
                     infile >> endlessmode->board->snake->dy;
-                    if(endlessmode->board->snake2)
-                    {
-                        infile >> endlessmode->board->snake2->len;
-                        for(int i = 0; i < endlessmode->board->snake2->len; ++i)
-                        {
-                            infile >> endlessmode->board->snake2->s[i][0] >> endlessmode->board->snake2->s[i][1];
-                        }
-                        infile >> endlessmode->board->snake2->dx;
-                        infile >> endlessmode->board->snake2->dy;
-                    }
                     infile.close();
                     endlessmode->show();
                 }
@@ -177,7 +182,12 @@ readFile::readFile(QWidget *parent, int mode) :
                     SingleMode *singlemode = new SingleMode(this->father,dead_time);
                     infile >> singlemode->level;
                     infile >> singlemode->board->score;
-                    infile >> singlemode->board->maxScore;
+                    int maxscore;
+                    infile >> maxscore;
+                    if(singlemode->board->maxScore<maxscore)
+                    {
+                        singlemode->board->maxScore=maxscore;
+                    }
                     infile >> singlemode->board->move_interval;
                     infile >> singlemode->board->length;
                     for(int i = 0; i < 500; ++i)

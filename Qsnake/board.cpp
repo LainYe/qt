@@ -5,6 +5,8 @@
 #include <cmath>
 #include <iostream>
 #include <fstream>
+#include <QFile>
+#include <QTextStream>
 
 using namespace std;
 
@@ -17,21 +19,28 @@ Board::Board(int _length, int _mode)
     length = _length;
     snake = new Snake(this);
     //读取最大值
-    fstream file;
+    QString filename;
     if(mode == 1){
-        file.open("maxscore.endless",ios::in);
+        filename=QString("maxscore.endless");
     }
     else if(mode == 2){
-        file.open("maxscore.single",ios::in);
+        filename=QString("maxscore.single");
     }
     else if(mode == 3){
-        file.open("maxscore.pair",ios::in);
+        filename=QString("maxscore.pair");
     }
-    if(file){
-        file >> maxScore;
-        //第一次进入游戏
-        if(maxScore < score)
-            maxScore = 0;
+    QFile file(filename);
+    if(file.open(QIODevice::ReadOnly|QIODevice::Truncate)){
+        QTextStream infile(&file);
+        infile >> maxScore;
+        file.close();
+
+        file.setFileName(filename);
+        file.open(QIODevice::WriteOnly);
+        QTextStream outfile(&file);
+        if(maxScore<score)
+            maxScore=score;
+        outfile<<maxScore;
         file.close();
     }
     else
@@ -90,7 +99,7 @@ void Board::get_score()
             file.open("maxscore.endless",ios::out);
         }
         else if(mode == 2){
-            file.open("maxscrore.single",ios::out);
+            file.open("maxscore.single",ios::out);
         }
         else if(mode == 3){
              file.open("maxscore.pair",ios::out);
