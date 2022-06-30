@@ -7,8 +7,5 @@
         <file>maps/level_4.single</file>
         <file>maps/level_5.single</file>
         <file>maps/level_6.single</file>
-        <file>maps/level_7.single</file>
-        <file>maps/level_8.single</file>
-        <file>maps/level_9.single</file>
     </qresource>
 </RCC>
