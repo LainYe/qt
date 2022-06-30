@@ -7,5 +7,6 @@
         <file>maps/level_4.single</file>
         <file>maps/level_5.single</file>
         <file>maps/level_6.single</file>
+        <file>maps/story_0.txt</file>
     </qresource>
 </RCC>

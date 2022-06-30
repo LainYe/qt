@@ -10,7 +10,8 @@
 #include <QString>
 #include <string>
 #include <QFile>
-
+#include <QTextCodec>
+#include <QCoreApplication>
 using namespace std;
 # pragma execution_character_set("utf-8")
 
@@ -123,27 +124,35 @@ void SingleMode::paintEvent(QPaintEvent *ev)
     painter.setPen(Qt::blue);
 
     painter.drawText((board->length+3)*20+60, 2*20, "关卡");
-    painter.drawText((board->length+3)*20+60, 5*20, QString().number(level));
+    painter.drawText((board->length+3)*20+60, 4*20, QString().number(level));
 
 
     painter.drawText((board->length+3)*20+60, 7*20, "速度");
     double speed = (double)1/(board->move_interval/1000.0);
-    painter.drawText((board->length+3)*20+60, 10*20, QString("%1 /s").arg(speed,0,'g',3));
+    painter.drawText((board->length+3)*20+60, 9*20, QString("%1 /s").arg(speed,0,'g',3));
 
 
     painter.drawText((board->length+3)*20+60, 12*20, "最高分");
-    painter.drawText((board->length+3)*20+60, 15*20, QString().number(board->maxScore));
+    painter.drawText((board->length+3)*20+60, 14*20, QString().number(board->maxScore));
 
     painter.drawText((board->length+3)*20+60, 17*20, "当前");
-    painter.drawText((board->length+3)*20+60, 20*20, QString().number(board->score));
+    painter.drawText((board->length+3)*20+60, 19*20, QString().number(board->score));
 
     painter.drawText((board->length+3)*20+60, 22*20, "洞外长度");
-    painter.drawText((board->length+3)*20+60, 25*20, QString().number(board->snake->total_len-board->snake->len));
+    painter.drawText((board->length+3)*20+60, 24*20, QString().number(board->snake->total_len-board->snake->len));
 
     painter.drawText((board->length+3)*20+60, 27*20, "总剩余时间/s");
-    painter.drawText((board->length+3)*20+60, 30*20, QString().number(stable_timer->remainingTime()/1000));
+    painter.drawText((board->length+3)*20+60, 29*20, QString().number(stable_timer->remainingTime()/1000));
     dead_time=stable_timer->remainingTime();
 
+    QString filename=QString(":/SingleModeMaps/maps/story_")+char(level+48)+QString(".txt");
+    QFile file(filename);
+    file.open(QIODevice::ReadOnly|QIODevice::Text);
+    QTextCodec *codec=QTextCodec::codecForName("UTF8");
+    QString text=codec->toUnicode(file.readAll());
+    painter.drawText((board->length+3)*20+60, 32*20, "关卡描述");
+    painter.drawText((board->length+3)*20+60, 34*20, text);
+    file.close();
     //more
 }
 

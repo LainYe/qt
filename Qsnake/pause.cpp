@@ -73,7 +73,7 @@ Pause::Pause(QWidget *parent, int mode) :
     if(mode == 2){
         father2 = (SingleMode*)parent;
         connect(ui->back, &QPushButton::clicked,[=](){
-            QWaitingDialog *w = new QWaitingDialog(father1);
+            QWaitingDialog *w = new QWaitingDialog(father2);
             w->Run(3);
             QTimer* timer = new QTimer(this);
             timer->setInterval(3000);

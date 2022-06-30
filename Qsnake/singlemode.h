@@ -17,7 +17,7 @@ class SingleMode : public QWidget
     Q_OBJECT
 
 public:
-    explicit SingleMode(QWidget *parent = nullptr, int Dead_Time=3000000);
+    explicit SingleMode(QWidget *parent = nullptr, int Dead_Time=300000);
     ~SingleMode();
     bool pause;//是否暂停状态
     bool flag;//用来保证1个时间间隔只处理一个有效键盘事件
