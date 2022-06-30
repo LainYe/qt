@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'pause.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.12
+** Created by: Qt User Interface Compiler version 5.14.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,6 +10,7 @@
 #define UI_PAUSE_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QPushButton>
@@ -36,6 +37,9 @@ public:
         if (Pause->objectName().isEmpty())
             Pause->setObjectName(QString::fromUtf8("Pause"));
         Pause->resize(400, 300);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/new/prefix1/picture.png"), QSize(), QIcon::Normal, QIcon::Off);
+        Pause->setWindowIcon(icon);
         widget = new QWidget(Pause);
         widget->setObjectName(QString::fromUtf8("widget"));
         widget->setGeometry(QRect(143, 119, 221, 151));
@@ -86,11 +90,11 @@ public:
 
     void retranslateUi(QWidget *Pause)
     {
-        Pause->setWindowTitle(QApplication::translate("Pause", "Form", nullptr));
-        back->setText(QApplication::translate("Pause", "\345\233\236\345\210\260\346\270\270\346\210\217", nullptr));
-        read->setText(QApplication::translate("Pause", "\350\257\273\346\241\243", nullptr));
-        save->setText(QApplication::translate("Pause", "\345\255\230\346\241\243", nullptr));
-        exit->setText(QApplication::translate("Pause", "\347\273\223\346\235\237\346\270\270\346\210\217", nullptr));
+        Pause->setWindowTitle(QCoreApplication::translate("Pause", "\346\232\202\345\201\234", nullptr));
+        back->setText(QCoreApplication::translate("Pause", "\345\233\236\345\210\260\346\270\270\346\210\217", nullptr));
+        read->setText(QCoreApplication::translate("Pause", "\350\257\273\346\241\243", nullptr));
+        save->setText(QCoreApplication::translate("Pause", "\345\255\230\346\241\243", nullptr));
+        exit->setText(QCoreApplication::translate("Pause", "\347\273\223\346\235\237\346\270\270\346\210\217", nullptr));
     } // retranslateUi
 
 };

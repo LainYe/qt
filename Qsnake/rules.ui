@@ -17,7 +17,11 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>规则</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="image.qrc">
+    <normaloff>:/new/prefix1/picture.png</normaloff>:/new/prefix1/picture.png</iconset>
   </property>
   <widget class="QTreeWidget" name="treeWidget">
    <property name="geometry">
@@ -91,6 +95,8 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="image.qrc"/>
+ </resources>
  <connections/>
 </ui>
