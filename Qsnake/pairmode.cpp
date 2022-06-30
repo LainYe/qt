@@ -289,6 +289,7 @@ void PairMode::EndDraw(){
 void PairMode:: timerEvent()
 {
     bool go_on=1;//表示是否继续
+    bool win1=0;bool win2=0;
     if (value<=0){
         int delta=board->snake->len-board->snake2->len;
         if (delta>0)
@@ -309,13 +310,13 @@ void PairMode:: timerEvent()
     //撞墙
     if(next == -1)
     {
-        Player2win();
+        win2=1;
         go_on=0;
     }
     //咬到自己了
     else if(next == 3)
     {
-        Player2win();
+         win2=1;
          go_on=0;
     }
     //平地或吃食物或咬到对方
@@ -369,14 +370,14 @@ void PairMode:: timerEvent()
     next=board->snake2->detect();//再在新地图研究
     if(next == -1)
     {
-        Player1win();
-         go_on=0;
+        win1=1;
+        go_on=0;
 
     }
     //咬到自己了
     else if(next == 4)
     {
-        Player1win();
+         win1=1;
          go_on=0;
     }
     else if (next==2){
@@ -405,6 +406,16 @@ void PairMode:: timerEvent()
     repaint();
     timer->setInterval(board->move_interval);
     timer->start();
+    }
+    else if (win1||win2){
+        if (win1&&win2)
+            EndDraw();
+        else{
+            if (win1)
+                Player1win();
+            else
+                Player2win();
+        }
     }
 }
 
