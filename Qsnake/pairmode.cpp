@@ -333,6 +333,7 @@ void PairMode:: timerEvent()
         if (tx==board->snake2->s[0][0]&&ty==board->snake2->s[0][1])
         {
             EndDraw();
+            go_on=0;
         }
         for(int i=board->snake2->len-1;i>0;i--)
         {
@@ -436,7 +437,7 @@ int PairMode::saveFile(std::string fileName)
             outfile << board->maxScore << " ";
             outfile << board->move_interval << " ";
             outfile << board->food_interval << " ";
-            outfile << board->length << " \n";
+            outfile << board->length <<" ";
             outfile << value <<"\n";
             for(int i = 0; i < 500; ++i)
             {
@@ -483,7 +484,8 @@ int PairMode::saveFile(std::string fileName)
         outfile << board->maxScore << " ";
         outfile << board->move_interval << " ";
         outfile << board->food_interval << " ";
-        outfile << board->length << " \n";
+        outfile << board->length << " ";
+        outfile << value <<"\n";
         for(int i = 0; i < 500; ++i)
         {
             for(int j = 0; j < 500; ++j)
@@ -500,8 +502,6 @@ int PairMode::saveFile(std::string fileName)
         outfile << '\n';
         outfile << board->snake->dx << " ";
         outfile << board->snake->dy << " ";
-        if(board->snake2)
-        {
             outfile << board->snake2->len << " ";
             for(int i = 0; i < board->snake2->len; ++i)
             {
@@ -510,7 +510,6 @@ int PairMode::saveFile(std::string fileName)
             outfile << '\n';
             outfile << board->snake2->dx << " ";
             outfile << board->snake2->dy << " ";
-         }
         outfile.close();
     }
     return 0;
