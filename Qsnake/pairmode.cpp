@@ -73,31 +73,31 @@ void PairMode::paintEvent(QPaintEvent *ev)
     }
 
     for(int i = 0; i <= board->length + 1; ++i)
-    {
-        for(int j = 0; j <= board->length+ 1; ++j)
         {
-            if(board->map[i][j] == 2)//食物
+            for(int j = 0; j <= board->length+ 1; ++j)
             {
-                painter.setBrush(Qt::yellow);
-                painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
-            }
-            else if(board->map[i][j] == 1){//空地
-                continue;
-            }
-            else if(board->map[i][j] == 0 || board->map[i][j] == 3 || board->map[i][j] == 4){//蛇
-                painter.setBrush(Qt::white);
-                if(i == board->snake->s[0][0] && j == board->snake->s[0][1])
-                    painter.setBrush(Qt::darkGreen);
-                if(board->snake2 && i == board->snake2->s[0][0] && j == board->snake2->s[0][1])
-                    painter.setBrush(Qt::darkRed);
-                painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
-            }
-            else if(board->map[i][j] == -1){
-                painter.setBrush(Qt::lightGray);
-                painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
+                if(board->map[i][j] == 2)//食物
+                {
+                    painter.setBrush(Qt::yellow);
+                    painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
+                }
+                else if(board->map[i][j] == 1){//空地
+                    continue;
+                }
+                else if(board->map[i][j] == 0 || board->map[i][j] == 3 || board->map[i][j] == 4){//蛇
+                    painter.setBrush(Qt::white);
+                    if(i == board->snake->s[0][0] && j == board->snake->s[0][1])
+                        painter.setBrush(Qt::darkGreen);
+                    if(board->snake2 && i == board->snake2->s[0][0] && j == board->snake2->s[0][1])
+                        painter.setBrush(Qt::darkRed);
+                    painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
+                }
+                else if(board->map[i][j] == -1){
+                    painter.setBrush(Qt::lightGray);
+                    painter.drawRect(j*Rectsize,i*Rectsize,Rectsize,Rectsize);
+                }
             }
         }
-    }
 
 
     //字体
@@ -109,15 +109,15 @@ void PairMode::paintEvent(QPaintEvent *ev)
     painter.drawText((board->length+3)*Rectsize+60, 3*20, "速度");
     double speed = (double)1/(board->move_interval/1000.0);
     painter.drawText((board->length+3)*Rectsize+60, 6*20, QString("%1 /s").arg(speed,0,'g',3));
+
     if (value<=60)
     {painter.setPen(Qt::green);}
     if (value<=30)
-    {painter.setPen(Qt::yellow);}
+        {painter.setPen(Qt::yellow);}
     if (value<=10)
-    {painter.setPen(Qt::red);}
+        {painter.setPen(Qt::red);}
     painter.drawText((board->length+3)*Rectsize+60, 10*20, "倒计时");
     painter.drawText((board->length+3)*Rectsize+60, 13*20, QString("%d /s").number(value));
-
 
     painter.setPen(Qt::blue);
     painter.drawText((board->length+3)*Rectsize+60, 16*20, "玩家1长度");
@@ -143,7 +143,7 @@ void PairMode::keyPressEvent(QKeyEvent *event)
     }
     //若1个间隔多次按方向键就忽略
     if(flag&&flag1)
-        return;
+      return;
     if(event->key() == Qt::Key_Up)
     {
         if(board->snake->dx != 0)
@@ -222,8 +222,8 @@ void PairMode::Player1win(){
     timer2->stop();
     timer3->stop();
     if (QMessageBox::Yes ==
-            QMessageBox::question(this, tr("Game Over"), tr("玩家1获胜！开始新游戏吗？"),
-                                  QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
+        QMessageBox::question(this, tr("Game Over"), tr("玩家1获胜！开始新游戏吗？"),
+            QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
     {
         board = new Board(20,3);
         timer->setInterval(board->move_interval);
@@ -245,8 +245,8 @@ void PairMode::Player2win(){
     timer2->stop();
     timer3->stop();
     if (QMessageBox::Yes ==
-            QMessageBox::question(this, tr("Game Over"), tr("玩家2获胜！开始新游戏吗？"),
-                                  QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
+        QMessageBox::question(this, tr("Game Over"), tr("玩家2获胜！开始新游戏吗？"),
+            QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
     {
         board = new Board(20,3);
         timer->setInterval(board->move_interval);
@@ -268,8 +268,8 @@ void PairMode::EndDraw(){
     timer2->stop();
     timer3->stop();
     if (QMessageBox::Yes ==
-            QMessageBox::question(this, tr("Game Over"), tr("平局！开始新游戏吗?"),
-                                  QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
+        QMessageBox::question(this, tr("Game Over"), tr("平局！开始新游戏吗?"),
+            QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
     {
         board = new Board(20,3);
         timer->setInterval(board->move_interval);
@@ -278,7 +278,7 @@ void PairMode::EndDraw(){
         timer2->start();
         timer3->setInterval(1000);
         timer3->start();
-        value=120;
+         value=120;
     }
     else
     {
@@ -316,7 +316,7 @@ void PairMode:: timerEvent()
     else if(next == 3)
     {
         Player2win();
-        go_on=0;
+         go_on=0;
     }
     //平地或吃食物或咬到对方
     else if(next == 1)
@@ -354,7 +354,7 @@ void PairMode:: timerEvent()
         if (tx==board->snake->s[0][0]&&ty==board->snake->s[0][1])
         {
             EndDraw();
-            go_on=0;
+             go_on=0;
         }
         for(int i=board->snake->len-1;i>0;i--)
         {
@@ -370,14 +370,14 @@ void PairMode:: timerEvent()
     if(next == -1)
     {
         Player1win();
-        go_on=0;
+         go_on=0;
 
     }
     //咬到自己了
     else if(next == 4)
     {
         Player1win();
-        go_on=0;
+         go_on=0;
     }
     else if (next==2){
         board->snake2->eat(4);
@@ -389,11 +389,11 @@ void PairMode:: timerEvent()
         if (action!=2)//刚才player1没有吃到苹果，又在tempmap中没有出现3，则肯定是头
         {
             EndDraw();
-            go_on=0;
+             go_on=0;
         }
         else {
             if (tx==board->snake->s[0][0]&&ty==board->snake->s[0][1])
-                EndDraw();
+            {EndDraw();go_on=0;}
             else //说明是吃到尾巴
             {
                 board->snake->len--;
@@ -402,9 +402,9 @@ void PairMode:: timerEvent()
         }
     }
     if (go_on){
-        repaint();
-        timer->setInterval(board->move_interval);
-        timer->start();
+    repaint();
+    timer->setInterval(board->move_interval);
+    timer->start();
     }
 }
 
@@ -415,8 +415,8 @@ int PairMode::saveFile(std::string fileName)
     if(infile)
     {
         if (QMessageBox::Yes ==
-                QMessageBox::question(this, tr("存档"), tr("存档已经存在，确认要覆盖吗?"),
-                                      QMessageBox::Yes | QMessageBox::No, QMessageBox::No))
+            QMessageBox::question(this, tr("存档"), tr("存档已经存在，确认要覆盖吗?"),
+                QMessageBox::Yes | QMessageBox::No, QMessageBox::No))
         {
             std::ofstream outfile;
             outfile.open(fileName);
@@ -452,7 +452,7 @@ int PairMode::saveFile(std::string fileName)
                 outfile << '\n';
                 outfile << board->snake2->dx << " ";
                 outfile << board->snake2->dy << " ";
-            }
+             }
             infile.close();
             outfile.close();
             return 0;
@@ -499,7 +499,7 @@ int PairMode::saveFile(std::string fileName)
             outfile << '\n';
             outfile << board->snake2->dx << " ";
             outfile << board->snake2->dy << " ";
-        }
+         }
         outfile.close();
     }
     return 0;
