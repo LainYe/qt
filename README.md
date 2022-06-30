@@ -1,6 +1,4 @@
 # qt
-rubbish
-hahaha
 
 存档放在默认路径下的saves文件夹
 
