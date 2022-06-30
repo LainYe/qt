@@ -73,7 +73,9 @@ SingleMode::SingleMode(QWidget *_father,int Dead_Time) :
     connect(stable_timer,&QTimer::timeout,this,&SingleMode::stable_timerEvent);
     timer->start();
     stable_timer->start(dead_time);
-    resize(1000,800);
+    resize(1200,1000);
+    setMinimumSize(1200,1000);
+    setMaximumSize(1200,1000);
 }
 
 SingleMode::~SingleMode()
