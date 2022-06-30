@@ -1,8 +1,10 @@
 ﻿#include "pause.h"
 #include "ui_pause.h"
 #include "readfile.h"
+#include "qwaitingdialog.h"
 #include <QPushButton>
 #include <QTimer>
+#include <QPainter>
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QString>
@@ -20,11 +22,18 @@ Pause::Pause(QWidget *parent, int mode) :
     if(mode == 1){
         father1 = (EndlessMode*)parent;
         connect(ui->back, &QPushButton::clicked,[=](){
-            father1->pause = 0;
-            father1->timer->start();
-            father1->timer2->start();
-            close();
-            delete this;
+            QWaitingDialog *w = new QWaitingDialog(father1);
+            w->Run(3);
+            QTimer* timer = new QTimer(this);
+            timer->setInterval(3000);
+            connect(timer,&QTimer::timeout,[=](){
+                father1->pause = 0;
+                father1->timer->start();
+                father1->timer2->start();
+                close();
+                delete this;
+            });
+            timer->start();
         });
         connect(ui->save, &QPushButton::clicked,[=](){
             QString filename = QInputDialog::getText(this,"游戏存档","请输入文件名:");
@@ -64,10 +73,17 @@ Pause::Pause(QWidget *parent, int mode) :
     if(mode == 2){
         father2 = (SingleMode*)parent;
         connect(ui->back, &QPushButton::clicked,[=](){
-            father2->pause = 0;
-            father2->timer->start();
-            close();
-            delete this;
+            QWaitingDialog *w = new QWaitingDialog(father1);
+            w->Run(3);
+            QTimer* timer = new QTimer(this);
+            timer->setInterval(3000);
+            connect(timer,&QTimer::timeout,[=](){
+                father2->pause = 0;
+                father2->timer->start();
+                close();
+                delete this;
+            });
+            timer->start();
         });
         connect(ui->save, &QPushButton::clicked,[=](){
             QString filename = QInputDialog::getText(this,"游戏存档","请输入文件名:");
@@ -111,3 +127,5 @@ Pause::~Pause()
 {
     delete ui;
 }
+
+

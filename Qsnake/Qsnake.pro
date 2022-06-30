@@ -16,6 +16,7 @@ SOURCES += \
     mainwindow.cpp \
     pairmode.cpp \
     pause.cpp \
+    qwaitingdialog.cpp \
     readfile.cpp \
     rules.cpp \
     singlemode.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     mainwindow.h \
     pairmode.h \
     pause.h \
+    qwaitingdialog.h \
     readfile.h \
     rules.h \
     singlemode.h \
