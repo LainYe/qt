@@ -3,7 +3,7 @@
 #include <io.h>
 #include <QString>
 #include <QMessageBox>
-#include <QDir>
+#include <QFile>
 #include <fstream>
 using namespace std;
 # pragma execution_character_set("utf-8")
@@ -14,16 +14,46 @@ bool initial_test()
     command = "mkdir ";
     if (_access("saves", 0) == -1)
         system((command + "saves").c_str());
-    QString maps_dirpath=":/SingleModeMaps/maps";
-    QDir maps_dir(maps_dirpath);
-    if (!maps_dir.exists()){
-        QMessageBox::information(0,"出错","资源文件缺失");
+    QString maps_dirpath=":/SingleModeMaps/maps/";
+    bool flag=true;
+    for(int i=0;i<7;i++)
+    {
+        QFile file(maps_dirpath+"level_"+char(i+48)+".single");
+        if(!file.open(QIODevice::ReadOnly))
+        {
+            flag=false;
+            break;
+        }
+        file.setFileName(maps_dirpath+"story_"+char(i+48)+".txt");
+        if(!file.open(QIODevice::ReadOnly))
+        {
+            flag=false;
+            break;
+        }
+    }
+    if(!flag)
+    {
+        QMessageBox::information(0,"错误","资源文件缺失");
         return false;
     }
-    /*QString rules_dirpath="";
-    QDir rules_dir(rules_dirpath);
-    if (!rules_dir.exists())
-        return false;*/
-    // rules文件夹构建中
+    QString images_dirpath=":/new/prefix1/";
+    QFile file(maps_dirpath+"background.gif");
+    if(!file.open(QIODevice::ReadOnly))
+    {
+        QMessageBox::information(0,"错误","资源文件缺失");
+        return false;
+    }
+    file.setFileName(maps_dirpath+"headline.png");
+    if(!file.open(QIODevice::ReadOnly))
+    {
+        QMessageBox::information(0,"错误","资源文件缺失");
+        return false;
+    }
+    file.setFileName(maps_dirpath+"picture.png");
+    if(!file.open(QIODevice::ReadOnly))
+    {
+        QMessageBox::information(0,"错误","资源文件缺失");
+        return false;
+    }
     return true;
 }

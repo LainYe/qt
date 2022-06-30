@@ -145,13 +145,15 @@ void SingleMode::paintEvent(QPaintEvent *ev)
     painter.drawText((board->length+3)*20+60, 29*20, QString().number(stable_timer->remainingTime()/1000));
     dead_time=stable_timer->remainingTime();
 
+    painter.drawText((board->length+3)*20+60, 32*20, "关卡描述");
+    font.setPointSize(10);
+    painter.setFont(font);
     QString filename=QString(":/SingleModeMaps/maps/story_")+char(level+48)+QString(".txt");
     QFile file(filename);
     file.open(QIODevice::ReadOnly|QIODevice::Text);
     QTextCodec *codec=QTextCodec::codecForName("UTF8");
     QString text=codec->toUnicode(file.readAll());
-    painter.drawText((board->length+3)*20+60, 32*20, "关卡描述");
-    painter.drawText((board->length+3)*20+60, 34*20, text);
+    painter.drawText((board->length+3)*20+60, 33*20, text);
     file.close();
     //more
 }
@@ -429,7 +431,16 @@ bool SingleMode::next_level(int previous_level)
                         QMessageBox::Yes|QMessageBox::No,this);
         box.setButtonText(QMessageBox::Yes,"进入游戏！");
         box.setButtonText(QMessageBox::No,"暂停一下");
+        QTimer* Timer = new QTimer(this);
+        Timer->setInterval(100);
+        Timer->start();
+        connect(Timer,&QTimer::timeout,[=](){
+            repaint();
+            Timer->setInterval(100);
+            Timer->start();
+        });
         int tmp = box.exec();
+        delete Timer;
         if(tmp == QMessageBox::No){
             timer->stop();
             pause = 1;

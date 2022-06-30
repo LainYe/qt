@@ -8,5 +8,11 @@
         <file>maps/level_5.single</file>
         <file>maps/level_6.single</file>
         <file>maps/story_0.txt</file>
+        <file>maps/story_1.txt</file>
+        <file>maps/story_2.txt</file>
+        <file>maps/story_3.txt</file>
+        <file>maps/story_4.txt</file>
+        <file>maps/story_5.txt</file>
+        <file>maps/story_6.txt</file>
     </qresource>
 </RCC>

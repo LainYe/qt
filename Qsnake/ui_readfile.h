@@ -25,28 +25,38 @@ class Ui_readFile
 public:
     QWidget *widget;
     QGridLayout *gridLayout;
+    QSpacerItem *horizontalSpacer_2;
+    QSpacerItem *verticalSpacer;
     QPushButton *choosefile;
     QSpacerItem *horizontalSpacer;
-    QSpacerItem *verticalSpacer_3;
-    QSpacerItem *horizontalSpacer_2;
-    QSpacerItem *verticalSpacer_2;
     QPushButton *back;
-    QSpacerItem *verticalSpacer;
+    QSpacerItem *verticalSpacer_3;
+    QSpacerItem *verticalSpacer_2;
     QLabel *label;
 
     void setupUi(QWidget *readFile)
     {
         if (readFile->objectName().isEmpty())
             readFile->setObjectName(QString::fromUtf8("readFile"));
-        readFile->resize(400, 300);
+        readFile->resize(600, 400);
+        readFile->setMinimumSize(QSize(600, 400));
+        readFile->setMaximumSize(QSize(600, 400));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/new/prefix1/picture.png"), QSize(), QIcon::Normal, QIcon::Off);
         readFile->setWindowIcon(icon);
         widget = new QWidget(readFile);
         widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(120, 90, 161, 121));
+        widget->setGeometry(QRect(180, 120, 211, 161));
         gridLayout = new QGridLayout(widget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_2, 2, 2, 1, 1);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout->addItem(verticalSpacer, 3, 1, 1, 1);
+
         choosefile = new QPushButton(widget);
         choosefile->setObjectName(QString::fromUtf8("choosefile"));
 
@@ -56,30 +66,22 @@ public:
 
         gridLayout->addItem(horizontalSpacer, 2, 0, 1, 1);
 
-        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout->addItem(verticalSpacer_3, 5, 1, 1, 1);
-
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_2, 2, 2, 1, 1);
-
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout->addItem(verticalSpacer_2, 0, 1, 1, 1);
-
         back = new QPushButton(widget);
         back->setObjectName(QString::fromUtf8("back"));
 
         gridLayout->addWidget(back, 4, 1, 1, 1);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        gridLayout->addItem(verticalSpacer, 3, 1, 1, 1);
+        gridLayout->addItem(verticalSpacer_3, 5, 1, 1, 1);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout->addItem(verticalSpacer_2, 0, 1, 1, 1);
 
         label = new QLabel(readFile);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(0, -60, 401, 361));
+        label->setGeometry(QRect(-10, -50, 611, 451));
         label->setStyleSheet(QString::fromUtf8("border-image: url(:/new/prefix1/background.gif);"));
         label->raise();
         widget->raise();

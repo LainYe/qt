@@ -36,12 +36,14 @@ public:
         if (ChooseNewGame->objectName().isEmpty())
             ChooseNewGame->setObjectName(QString::fromUtf8("ChooseNewGame"));
         ChooseNewGame->resize(600, 400);
+        ChooseNewGame->setMinimumSize(QSize(600, 400));
+        ChooseNewGame->setMaximumSize(QSize(600, 400));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/new/prefix1/picture.png"), QSize(), QIcon::Normal, QIcon::Off);
         ChooseNewGame->setWindowIcon(icon);
         widget = new QWidget(ChooseNewGame);
         widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(230, 150, 151, 151));
+        widget->setGeometry(QRect(220, 150, 151, 151));
         verticalLayout = new QVBoxLayout(widget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         singlemode = new QPushButton(widget);
@@ -61,14 +63,16 @@ public:
 
         pushButton_4 = new QPushButton(ChooseNewGame);
         pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
-        pushButton_4->setGeometry(QRect(440, 330, 80, 20));
+        pushButton_4->setGeometry(QRect(432, 310, 101, 21));
+        pushButton_4->setMinimumSize(QSize(0, 0));
+        pushButton_4->setMaximumSize(QSize(600, 400));
         label = new QLabel(ChooseNewGame);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(50, -210, 501, 611));
+        label->setGeometry(QRect(30, -330, 511, 861));
         label->setStyleSheet(QString::fromUtf8("image: url(:/new/prefix1/headline.png);"));
         label_2 = new QLabel(ChooseNewGame);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(-30, -60, 641, 471));
+        label_2->setGeometry(QRect(-10, -90, 611, 491));
         label_2->setStyleSheet(QString::fromUtf8("border-image: url(:/new/prefix1/background.gif);"));
         label_2->raise();
         label->raise();
