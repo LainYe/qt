@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>600</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,18 +28,13 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
-     <height>300</height>
+     <width>601</width>
+     <height>401</height>
     </rect>
    </property>
    <column>
     <property name="text">
      <string>1</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>2</string>
     </property>
    </column>
    <item>
@@ -48,8 +43,73 @@
     </property>
     <item>
      <property name="text">
-      <string>内容</string>
+      <string>内容：</string>
      </property>
+     <item>
+      <property name="text">
+       <string>本游戏名为“贪吃蛇大作战”，是一款轻松、益</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>智、休闲的小游戏。游戏分为三种模式，分别</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>为挑战智力的单人模式、超越极限的无尽模式</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>和PK能力的双人模式。本游戏充分协调了单人</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>休闲与双人娱乐的功能，是一款优秀的小游戏。</string>
+      </property>
+     </item>
+    </item>
+    <item>
+     <property name="text">
+      <string>制作者：</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>制作者为北京大学信息科学技术学院同学赵潇</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>晗、毛嘉楷、连烨（队长）三位同学组成的“太</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>队了哥”程序设计实习课程小组，制作于2022</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>年6月。</string>
+      </property>
+     </item>
+    </item>
+    <item>
+     <property name="text">
+      <string>特别鸣谢：</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>衷心感谢张勤建老师的教导与黄致焕学长等</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>助教的帮助！</string>
+      </property>
+     </item>
     </item>
    </item>
    <item>
@@ -60,19 +120,146 @@
      <property name="text">
       <string>单人模式</string>
      </property>
+     <item>
+      <property name="text">
+       <string>玩家控制贪吃蛇，通过上下左右按钮，进行上</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>下左右的操作。碰到墙或咬到自己则死亡，选</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>择是否重新游戏。贪吃蛇吃到苹果会增加长度。</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>贪吃蛇通过成功进入洞口进入下一关的游戏。</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>每一关游戏的地图与蛇的初始状态都不同。</string>
+      </property>
+     </item>
     </item>
     <item>
      <property name="text">
       <string>无尽模式</string>
      </property>
-     <property name="text">
-      <string/>
-     </property>
+     <item>
+      <property name="text">
+       <string>无尽模式中，玩家控制贪吃蛇，通过上下左右</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>按钮，进行上下左右的操作。碰到墙或咬到自</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>己则死亡，选择是否重新游戏。贪吃蛇吃到苹</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>果会增加长度。地图为固定的正方形状态。每</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>隔一段时间，地图就会扩大（对应着贪吃蛇就</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>会缩小），以应对贪吃蛇胀大的身体。贪吃蛇</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>的速度、分数、最高分数在一旁均会有所显示。</string>
+      </property>
+     </item>
     </item>
     <item>
      <property name="text">
       <string>双人模式</string>
      </property>
+     <item>
+      <property name="text">
+       <string>双人模式中，两名玩家操控两条贪吃蛇。一名</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>玩家通过W，S，A，D四个按键操控贪吃蛇Pl</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ayer1,一名玩家通过上下左右按键操控贪吃蛇</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Player2。任何一条蛇碰墙或者咬到自己均视</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>为死亡，另一方获胜。同时死亡则视为平局。</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>任何一条蛇吃到苹果会增加长度。一条蛇咬到</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>另一条蛇的尾部，会将其咬断，令其只保留撕</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>咬处到头部的长度。若两条蛇的头部相碰，视</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>为平局。每局游戏时间为两分钟，时间到时，</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>更长的一方获胜，若一样长，则视为平局。倒</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>计时设置在右方，并且随时展示两条蛇的长度</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>与速度（两条蛇的速度同时增加）。当倒计时</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>到达60秒，30秒和10秒时，倒计时会分别变</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>为绿色、黄色、红色以提示玩家。</string>
+      </property>
+     </item>
     </item>
    </item>
    <item>
@@ -84,8 +271,8 @@
   <widget class="QPushButton" name="back">
    <property name="geometry">
     <rect>
-     <x>290</x>
-     <y>260</y>
+     <x>440</x>
+     <y>330</y>
      <width>80</width>
      <height>20</height>
     </rect>
