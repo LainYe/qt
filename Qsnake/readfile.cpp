@@ -13,7 +13,7 @@
 #include "QDebug"
 #include "QByteArray"
 #include "QFile"
-
+#include "pairmode.h"
 
 using namespace std;
 # pragma execution_character_set("utf-8")
@@ -127,7 +127,59 @@ readFile::readFile(QWidget *parent, int mode) :
                 singlemode->show();
             }
         }
-        //else if(mode == 3){}
+        else if(mode == 3){
+            QString filepath = QFileDialog::getOpenFileName(this,"请选择游戏存档","saves\\","(*endless)");
+            QString dirpath = QDir::currentPath();
+            filepath = filepath.mid(dirpath.length()+1);
+            filepath = filepath.mid(6);//去掉"saves/"
+            filepath = QString("saves\\\\") + filepath;
+            QByteArray a = filepath.toLatin1();
+            char* filename = a.data();
+            qDebug()<<filename;
+
+            fstream infile(filename,ios::in);
+            if(infile){
+                this->hide();
+                PairMode *pairmode = new PairMode(this->father);
+                infile.get();
+                infile >> pairmode->board->score;
+                int maxscore;
+                infile >> maxscore;
+                if(pairmode->board->maxScore<maxscore)
+                {
+                    pairmode->board->maxScore=maxscore;
+                }
+                infile >> pairmode->board->move_interval;
+                infile >> pairmode->board->food_interval;
+                infile >> pairmode->board->length;
+                infile >>pairmode->value;
+                for(int i = 0; i < 500; ++i)
+                {
+                    for(int j = 0; j < 500; ++j)
+                    {
+                        infile >> pairmode->board->map[i][j];
+                    }
+                }
+                infile >> pairmode->board->snake->len;
+                for(int i = 0; i < pairmode->board->snake->len; ++i)
+                {
+                    infile >> pairmode->board->snake->s[i][0] >> pairmode->board->snake->s[i][1];
+                }
+                infile >> pairmode->board->snake->dx;
+                infile >> pairmode->board->snake->dy;
+
+                    infile >> pairmode->board->snake2->len;
+                    for(int i = 0; i < pairmode->board->snake2->len; ++i)
+                    {
+                        infile >> pairmode->board->snake2->s[i][0] >> pairmode->board->snake2->s[i][1];
+                    }
+                    infile >> pairmode->board->snake2->dx;
+                    infile >> pairmode->board->snake2->dy;
+
+                infile.close();
+                pairmode->show();
+            }
+        }
         else if(mode==0)
         {
 
@@ -208,7 +260,44 @@ readFile::readFile(QWidget *parent, int mode) :
                     infile.close();
                     singlemode->show();
                 }
-                //else if(mode==3){}
+                else if(temp_mode==3)
+                {
+                    PairMode *pairmode = new PairMode(this->father);
+                    infile >> pairmode->board->score;
+                    int maxscore;
+                    infile >> maxscore;
+                    if(pairmode->board->maxScore<maxscore)
+                    {
+                        pairmode->board->maxScore=maxscore;
+                    }
+                    infile >> pairmode->board->move_interval;
+                    infile >> pairmode->board->food_interval;
+                    infile >> pairmode->board->length;
+                    infile >> pairmode->value;
+                    for(int i = 0; i < 500; ++i)
+                    {
+                        for(int j = 0; j < 500; ++j)
+                        {
+                            infile >> pairmode->board->map[i][j];
+                        }
+                    }
+                    infile >> pairmode->board->snake->len;
+                    for(int i = 0; i < pairmode->board->snake->len; ++i)
+                    {
+                        infile >> pairmode->board->snake->s[i][0] >> pairmode->board->snake->s[i][1];
+                    }
+                    infile >> pairmode->board->snake->dx;
+                    infile >> pairmode->board->snake->dy;
+                    infile >> pairmode->board->snake2->len;
+                    for(int i = 0; i < pairmode->board->snake2->len; ++i)
+                    {
+                        infile >> pairmode->board->snake2->s[i][0] >> pairmode->board->snake2->s[i][1];
+                    }
+                    infile >> pairmode->board->snake2->dx;
+                    infile >> pairmode->board->snake2->dy;
+                    infile.close();
+                    pairmode->show();
+                }
 
 
             }

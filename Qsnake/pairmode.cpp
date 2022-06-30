@@ -437,6 +437,7 @@ int PairMode::saveFile(std::string fileName)
             outfile << board->move_interval << " ";
             outfile << board->food_interval << " ";
             outfile << board->length << " \n";
+            outfile << value <<"\n";
             for(int i = 0; i < 500; ++i)
             {
                 for(int j = 0; j < 500; ++j)
@@ -453,8 +454,7 @@ int PairMode::saveFile(std::string fileName)
             outfile << '\n';
             outfile << board->snake->dx << " ";
             outfile << board->snake->dy << " ";
-            if(board->snake2)
-            {
+
                 outfile << board->snake2->len << " ";
                 for(int i = 0; i < board->snake2->len; ++i)
                 {
@@ -463,7 +463,7 @@ int PairMode::saveFile(std::string fileName)
                 outfile << '\n';
                 outfile << board->snake2->dx << " ";
                 outfile << board->snake2->dy << " ";
-             }
+
             infile.close();
             outfile.close();
             return 0;

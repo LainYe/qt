@@ -10,7 +10,7 @@
 #include <QString>
 #include <QByteArray>
 #include <QDebug>
-
+#include "pairmode.h"
 # pragma execution_character_set("utf-8")
 
 Pause::Pause(QWidget *parent, int mode) :
@@ -119,8 +119,59 @@ Pause::Pause(QWidget *parent, int mode) :
             }
         });
     }
-    //if(mode == 3){
-    //}
+    if(mode == 3){
+        father3 = (PairMode*)parent;
+        connect(ui->back, &QPushButton::clicked,[=](){
+            QWaitingDialog *w = new QWaitingDialog(father3);
+            w->Run(3);
+            QTimer* timer = new QTimer(this);
+            timer->setInterval(3000);
+            connect(timer,&QTimer::timeout,[=](){
+                father3->pause = 0;
+                father3->timer->start();
+                father3->timer2->start();
+                father3->timer3->start();
+                close();
+                delete this;
+            });
+            timer->start();
+        });
+        connect(ui->save, &QPushButton::clicked,[=](){
+            QString filename = QInputDialog::getText(this,"游戏存档","请输入文件名:");
+            //点了cancel，filename是空的
+            if(filename.length() == 0){
+                return;
+            }
+            filename = QString("saves\\") + filename + QString(".pair");
+            qDebug()<<filename;
+            QByteArray arr = filename.toLatin1();
+            if(father3->saveFile(arr.data())){
+                return;
+            }
+            father3->pause = 0;
+            father3->timer->start();
+            father3->timer2->start();
+            father3->timer3->start();
+            delete this;
+        });
+        connect(ui->exit, &QPushButton::clicked,[=](){
+            if(QMessageBox::Yes == QMessageBox::question(0,"退出双人模式","本局游戏将丢失！继续吗")){
+                hide();
+                father3->hide();
+                father3->father->show();
+                delete father3;
+            }
+
+        });
+        connect(ui->read, &QPushButton::clicked,[=](){
+            if(QMessageBox::Yes == QMessageBox::question(0,"读档","本局游戏将丢失！继续吗")){
+                readFile *readf = new readFile(nullptr,mode);
+                readf->father = father3->father;
+                delete father3;
+                readf->show();
+            }
+        });
+    }
 }
 
 Pause::~Pause()
