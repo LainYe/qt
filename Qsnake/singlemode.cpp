@@ -73,9 +73,9 @@ SingleMode::SingleMode(QWidget *_father,int Dead_Time) :
     connect(stable_timer,&QTimer::timeout,this,&SingleMode::stable_timerEvent);
     timer->start();
     stable_timer->start(dead_time);
-    resize(1200,1000);
-    setMinimumSize(1200,1000);
-    setMaximumSize(1200,1000);
+    resize(1400,1000);
+    setMinimumSize(1400,1000);
+    setMaximumSize(1400,1000);
 }
 
 SingleMode::~SingleMode()
@@ -155,7 +155,7 @@ void SingleMode::paintEvent(QPaintEvent *ev)
     file.open(QIODevice::ReadOnly|QIODevice::Text);
     QTextCodec *codec=QTextCodec::codecForName("UTF8");
     QString text=codec->toUnicode(file.readAll());
-    painter.drawText((board->length+3)*20+60, 33*20, text);
+    painter.drawText((board->length+3)*20+60, 34*20, text);
     file.close();
     //more
 }
