@@ -131,7 +131,7 @@ public:
         QTreeWidgetItem *___qtreewidgetitem13 = ___qtreewidgetitem1->child(2);
         ___qtreewidgetitem13->setText(0, QCoreApplication::translate("Rules", "\347\211\271\345\210\253\351\270\243\350\260\242\357\274\232", nullptr));
         QTreeWidgetItem *___qtreewidgetitem14 = ___qtreewidgetitem13->child(0);
-        ___qtreewidgetitem14->setText(0, QCoreApplication::translate("Rules", "\350\241\267\345\277\203\346\204\237\350\260\242\345\274\240\345\213\244\345\273\272\350\200\201\345\270\210\347\232\204\346\225\231\345\257\274\344\270\216\351\273\204\350\207\264\347\204\225\345\255\246\351\225\277\347\255\211", nullptr));
+        ___qtreewidgetitem14->setText(0, QCoreApplication::translate("Rules", "\350\241\267\345\277\203\346\204\237\350\260\242\345\274\240\345\213\244\345\201\245\350\200\201\345\270\210\347\232\204\346\225\231\345\257\274\344\270\216\351\273\204\350\207\264\347\204\225\345\255\246\351\225\277\347\255\211", nullptr));
         QTreeWidgetItem *___qtreewidgetitem15 = ___qtreewidgetitem13->child(1);
         ___qtreewidgetitem15->setText(0, QCoreApplication::translate("Rules", "\345\212\251\346\225\231\347\232\204\345\270\256\345\212\251\357\274\201", nullptr));
         QTreeWidgetItem *___qtreewidgetitem16 = treeWidget->topLevelItem(1);
