@@ -241,10 +241,19 @@ void SingleMode:: timerEvent()
     if(next == -1)
     {
         timer->stop();
+        QTimer* Timer = new QTimer(this);
+        Timer->setInterval(100);
+        Timer->start();
+        connect(Timer,&QTimer::timeout,[=](){
+            repaint();
+            Timer->setInterval(100);
+            Timer->start();
+        });
         if (QMessageBox::Yes ==
                 QMessageBox::question(this, tr("Game Over"), tr("蛇撞墙了，重新开始本关吗?"),
                                       QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
         {
+            delete Timer;
             timer->stop();
             next_level(level-1);
             board->score=initial_score;
@@ -259,14 +268,22 @@ void SingleMode:: timerEvent()
     else if(next == 0)
     {
         timer->stop();
+        QTimer* Timer = new QTimer(this);
+        Timer->setInterval(100);
+        Timer->start();
+        connect(Timer,&QTimer::timeout,[=](){
+            repaint();
+            Timer->setInterval(100);
+            Timer->start();
+        });
         if (QMessageBox::Yes ==
                 QMessageBox::question(this, tr("Game Over"), tr("蛇咬到自己了，重新开始本关吗?"),
                                       QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes))
         {
+            delete Timer;
             timer->stop();
             next_level(level-1);
             board->score=initial_score;
-
         }
         else
         {
